@@ -1,5 +1,38 @@
+import {useEffect, useState} from 'react'
+import {Link} from 'react-router-dom'
 
 export default function Vans() {
+    const [vansData, setVansData] = useState([])
+
+    useEffect(function() {
+        fetch("/api/vans")
+            .then(res => res.json())
+            .then(data => setVansData(data.vans))
+    }, [])
+
+    console.log(vansData)
+
+    const vansElements = vansData.map((van, index) => (
+            <div key={van.id} className="van">
+                <Link 
+                    to={`/vans/${van.id}`} 
+                    aria-label={`View details for ${van.name}, priced at ${van.price} per day`}
+                >
+                <img className="van-image" src={van.imageUrl}/><br/>
+                <div className="van-details-wrap">
+                    <div className="van-name-btn">
+                        {van.name}
+                        <button className={van.type + "-vans"}>{van.type}</button>
+                    </div>
+                    <div className="van-price">
+                        ${van.price}<br/>
+                        <h5 className="timeframe">/day</h5>
+                    </div>
+                </div>
+                </Link>            
+            </div>
+    ))
+    
     return (
         <div className="vans-container">
             <div className="vans-filters">
@@ -12,24 +45,7 @@ export default function Vans() {
                 </div>
             </div>
             <div className="vans-list">
-                <div className="van">
-                    Van 1
-                </div>
-                <div className="van">
-                    Van 2
-                </div>
-                <div className="van">
-                    Van 3
-                </div>
-                <div className="van">
-                    Van 4
-                </div>
-                <div className="van">
-                    Van 5
-                </div>
-                <div className="van">
-                    Van 6
-                </div>
+                {vansElements}
             </div>
         </div>
     )
