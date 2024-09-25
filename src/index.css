@@ -29,6 +29,12 @@ body{
   box-sizing: border-box;
 }
 
+.site-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .navBar{
   display: flex;
   justify-content: space-between;
@@ -45,20 +51,26 @@ body{
   text-decoration: none;
 }
 
-.navBar li a{
+a{
   text-decoration: none;
   color: #4D4D4D;
   font-weight: 700;
 }
 
-.navBar li a:hover{
+a:hover{
   color: #161616;
   text-decoration: underline;
 }
 
-.navBar li a:focus{
+/* .navBar li a:focus{
   color: #161616;
   text-decoration: underline;
+} */
+
+.my-link {
+  color: #161616;
+  text-decoration: underline;
+  font-weight: 700;
 }
 
 .navBar ul{
@@ -125,6 +137,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: auto;
 }
 
 .about-container{
@@ -376,4 +389,80 @@ body{
   font-family: "Inter", sans-serif;
   cursor: pointer;
 
+}
+
+.host-layout-wrapper{
+  margin: 0;
+
+}
+.host-dash-head{
+  background-color: #FFEAD0;
+  color: #161616;
+  margin: 0;
+  padding: 27px;
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  
+  span {
+    text-decoration: underline;
+    font-weight: bold;
+  };
+
+  p {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 48px;
+    margin: 0;
+  }
+}
+
+.host-dash-details{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.host-dash-review{
+  background-color: #FFDDB2;
+  color: #161616;
+  display: flex;
+  padding: 27px;
+  margin: 0;
+  h4{
+    margin: 0 10px 0 0;
+  }
+  p{
+    margin-right: auto;
+
+  }
+  div {
+    margin-left: auto;
+  }
+  span {
+    text-decoration: underline;
+    font-weight: bold;
+  };
+}
+
+.host-dash-vans{
+  color: #161616;
+  padding: 27px;
+  div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span{
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+}
+
+.host-dash-vanlist{
+  background-color: #FFFFFF;
+  height: 102px;
+  border-radius: 5px;
 }
