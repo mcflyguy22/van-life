@@ -44,12 +44,18 @@ body{
   height: 111px;
 }
 
-.home-title a{
-  font-weight: 900;
-  margin-left: 26px;
-  color: #000000;
-  text-decoration: none;
+.home-title {
+  a{
+    font-weight: 900;
+    margin-left: 26px;
+    color: #161616;
+    text-decoration: none;
+  }
+  a:hover{
+    text-decoration: none;
+  }
 }
+
 
 a{
   text-decoration: none;
