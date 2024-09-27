@@ -597,3 +597,70 @@ a:hover{
 .host-van-link:hover{
   text-decoration: none;
 }
+
+.hostvan-detail{
+  padding: 27px;
+  display: flex;
+  align-items: center;
+  img{
+    height: 155px;
+    border-radius: 5px;
+  }
+  div{
+    display: flex;
+    flex-direction: column;
+    height: 155px;
+    justify-content: center;
+    align-items: start;
+    margin-inline: 20px 0px;
+    button{
+      padding: 8px 15px; 
+      border: none;
+      outline: none;
+      font-weight: 600;
+      font-size: 14px;
+      font-family: "Inter", sans-serif;
+      border-radius: 5px;
+      margin-right: auto;
+      transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .simple-vans{
+      background-color: #E17654;
+      color: #FFEAD0;
+    }
+    .luxury-vans{
+      background-color: #161616;
+      color: #FFEAD0;
+    }
+    .rugged-vans{
+      background-color: #115E59;
+      color: #FFEAD0;
+    }
+    h1{
+      font-size: 26px;
+      color: #161616;
+      font-weight: 800;
+      margin: 0;
+    }
+    p{
+      color: #161616;
+      margin: 0;
+    }
+  }
+}
+
+.hostvan-detail-nav{
+  ul{
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0 27px;
+    li{
+      margin-right: 20px;
+    }
+  }  
+}
+
+.backto-allvans{
+  padding-inline: 27px;
+}

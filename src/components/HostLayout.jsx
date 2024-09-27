@@ -7,26 +7,26 @@ export default function HostLayouts() {
                 <ul>
                     <li>
                         <NavLink 
-                            to="/host"
+                            to="."
                             end
                             className={({isActive}) => isActive ? "my-link" : ""}
                         >Dashboard</NavLink>
                     </li>
                     <li>
                         <NavLink 
-                            to="/host/income"
+                            to="income"
                             className={({isActive}) => isActive ? "my-link" : ""}
                         >Income</NavLink>
                     </li>
                     <li>
                         <NavLink 
-                            to="/host/vans"
+                            to="vans"
                             className={({isActive}) => isActive ? "my-link" : ""}
                         >Vans</NavLink>
                     </li>
                     <li>
                         <NavLink 
-                            to="/host/reviews"
+                            to="reviews"
                             className={({isActive}) => isActive ? "my-link" : ""}    
                         >Reviews</NavLink>
                     </li>
