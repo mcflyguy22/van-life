@@ -664,3 +664,36 @@ a:hover{
 .backto-allvans{
   padding-inline: 27px;
 }
+
+.host-van-detail-info{
+  padding: 27px;
+  font-size: 14px;
+
+  h4{
+    margin-top: 15px;
+  }
+  span{
+    font-weight: 400;
+  }
+  
+}
+.host-van-pricing-info{
+  padding: 27px;
+  h4{
+    margin-top: 15px;
+    font-size: 24px;
+  }
+  span{
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+}
+
+.host-van-photos{
+  padding: 27px;
+  img{
+    width: 25%;
+    border-radius: 5px;
+  }
+}
