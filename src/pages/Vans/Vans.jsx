@@ -4,7 +4,6 @@ import { Link, useSearchParams } from 'react-router-dom'
 export default function Vans() {
     const [vansData, setVansData] = useState([])
     const [searchParams, setSearchParams ] = useSearchParams()
-    const [activeFilter, setActiveFilter ] = useState([])
     const typeFilter = searchParams.get("type")
 
     console.log(typeFilter)
@@ -13,8 +12,6 @@ export default function Vans() {
             .then(res => res.json())
             .then(data => setVansData(data.vans))
     }, [])
-
-    console.log(vansData)
 
     const displayedVans = typeFilter ? 
         vansData.filter(van => van.type.toLowerCase() === typeFilter) 
@@ -51,17 +48,7 @@ export default function Vans() {
           return prevParams
         })
       }
-    
-    
-    function checkUrl(value) {
-        const url = window.location.href;
-        const searchString = value
-
-        const containsString = url.includes(searchString)
-        console.log("result:", containsString)
-    }
-
-    
+        
     return (
         <div className="vans-container">
             <div className="vans-filters">

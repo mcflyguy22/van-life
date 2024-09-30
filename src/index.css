@@ -202,13 +202,15 @@ a:hover{
 .vans-filter-options {
   margin-top: 22px;
   display: flex;
-  justify-content: space-around;
+  gap: 10px;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
 }
 
 .vans-filter-options > .simple-vans, .luxury-vans, .rugged-vans{
-  padding: 10px 20px;
+  width: 90px;
+  height: 35px;
   background-color: #FFEAD0;
   border: none;
   outline: none;
@@ -251,7 +253,8 @@ a:hover{
 .simple-vans-active{
   background-color: #E17654;
   color: #FFEAD0;
-  padding: 10px 20px;
+  width: 90px;
+  height: 35px;
   border: none;
   outline: none;
   font-weight: 600;
@@ -263,7 +266,8 @@ a:hover{
 .luxury-vans-active{
   background-color: #161616;
   color: #FFEAD0;
-  padding: 10px 20px;
+  width: 90px;
+  height: 35px;
   border: none;
   outline: none;
   font-weight: 600;
@@ -275,7 +279,8 @@ a:hover{
 .rugged-vans-active{
   background-color: #115E59;
   color: #FFEAD0;
-  padding: 10px 20px;
+  width: 90px;
+  height: 35px;
   border: none;
   outline: none;
   font-weight: 600;
