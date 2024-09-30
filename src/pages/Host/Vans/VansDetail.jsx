@@ -1,4 +1,4 @@
-import {useParams, NavLink, Outlet } from 'react-router-dom'
+import {useParams, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { BsArrowLeft } from "react-icons/bs";
 

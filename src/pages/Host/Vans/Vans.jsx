@@ -19,6 +19,7 @@ export default function Vans() {
                 to={`/host/vans/${van.id}`} 
                 aria-label={`View details for ${van.name}`}
                 className="host-van-link"
+                state={van.type}
             >
             <div key={van.id} className="host-van">
                     <img src={van.imageUrl}/>
