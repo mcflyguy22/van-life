@@ -207,9 +207,8 @@ a:hover{
   flex-wrap: wrap;
 }
 
-.vans-filter-options button{
-  width: 90px;
-  height: 32px;
+.vans-filter-options > .simple-vans, .luxury-vans, .rugged-vans{
+  padding: 10px 20px;
   background-color: #FFEAD0;
   border: none;
   outline: none;
@@ -220,10 +219,22 @@ a:hover{
   border-radius: 5px;
 }
 
+.clear-filter{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  color: #4D4D4D;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .simple-vans:hover{
   background-color: #E17654;
   color: #FFEAD0;
-
 }
 
 .luxury-vans:hover{
@@ -235,7 +246,42 @@ a:hover{
 .rugged-vans:hover{
   background-color: #115E59;
   color: #FFEAD0;
+}
 
+.simple-vans-active{
+  background-color: #E17654;
+  color: #FFEAD0;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  border-radius: 5px;
+}
+
+.luxury-vans-active{
+  background-color: #161616;
+  color: #FFEAD0;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  border-radius: 5px;
+}
+
+.rugged-vans-active{
+  background-color: #115E59;
+  color: #FFEAD0;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  border-radius: 5px;
 }
 
 .vans-filter-options a{
@@ -272,8 +318,7 @@ a:hover{
 }
 
 .van button{
-  width: 104px;
-  height: 32px;
+  padding: 6px 12px;
   border: none;
   outline: none;
   font-weight: 600;
@@ -288,22 +333,20 @@ a:hover{
   text-decoration: none;
   color: #161616;
 }
+
 .van .simple-vans{
   background-color: #E17654;
   color: #FFEAD0;
-
 }
 
 .van .luxury-vans{
   background-color: #161616;
   color: #FFEAD0;
-
 }
 
 .van .rugged-vans{
   background-color: #115E59;
   color: #FFEAD0;
-
 }
 
 .van-details-wrap{
