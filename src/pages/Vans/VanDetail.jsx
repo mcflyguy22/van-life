@@ -7,6 +7,7 @@ export default function VanDetail() {
     const [van, setVan] = useState([])
     const location = useLocation()
     const search = location.state?.search || ""
+    const type = location.state?.type || "all"
     console.log(search)
 
     useEffect(function() {
@@ -20,7 +21,7 @@ export default function VanDetail() {
     {van ? (
     <>
     <div className="van-detail-container">
-        <span className="all-vans"><Link to={`..${search}`}><BsArrowLeft /> &nbsp;Back to all vans</Link></span>
+        <span className="all-vans"><Link to={`..${search}`} relative="path"><BsArrowLeft /> &nbsp;Back to {type} vans</Link></span>
         <img src={van.imageUrl} />
         <br/>
         <button className={`${van.type}-vans`}>{van.type}</button>

@@ -1,27 +1,26 @@
-import {useEffect, useState} from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useState} from 'react'
+import { Link, useSearchParams, useLoaderData } from 'react-router-dom'
+import { getVans } from '../../api'
 
+export function Loader() {
+    return getVans()
+}
 export default function Vans() {
-    const [vansData, setVansData] = useState([])
     const [searchParams, setSearchParams ] = useSearchParams()
+    const [error, setError] = useState(null)
+    const vans = useLoaderData()
+
     const typeFilter = searchParams.get("type")
 
-    console.log(typeFilter)
-    useEffect(function() {
-        fetch("/api/vans")
-            .then(res => res.json())
-            .then(data => setVansData(data.vans))
-    }, [])
-
     const displayedVans = typeFilter ? 
-        vansData.filter(van => van.type.toLowerCase() === typeFilter) 
-        : vansData
+        vans.filter(van => van.type.toLowerCase() === typeFilter) 
+        : vans
 
     const vansElements = displayedVans.map((van, index) => (
             <div key={van.id} className="van">
                 <Link 
                     to={`/vans/${van.id}`} 
-                    state={{ search: `?${searchParams.toString()}` }}
+                    state={{ search: `?${searchParams.toString()}`, type: typeFilter }}
                     aria-label={`View details for ${van.name}, priced at ${van.price} per day`}
                 >
                 <img className="van-image" src={van.imageUrl}/><br/>
@@ -49,7 +48,14 @@ export default function Vans() {
           return prevParams
         })
       }
-        
+    
+    if (error) {
+        return <h1 style={{
+            color: "#000000", 
+            marginLeft: "27px"
+            }} aria-live="assertive">There was an error: {error.message}</h1>
+    }
+
     return (
         <div className="vans-container">
             <div className="vans-filters">
