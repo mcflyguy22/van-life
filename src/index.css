@@ -85,7 +85,6 @@ a:hover{
   font-size: 16;
 }
 
-
 .home-container{
   height: 100vh;
   width: 100%;
@@ -127,6 +126,7 @@ a:hover{
   font-size: 16px;
   font-family: "Inter", sans-serif;
   cursor: pointer;
+  color: white;
 }
 
 .footer{
@@ -442,7 +442,7 @@ a:hover{
 
 .host-layout-wrapper{
   margin: 0;
-
+  
 }
 .host-dash-head{
   background-color: #FFEAD0;
@@ -564,7 +564,7 @@ a:hover{
   height: 100px;
   padding-inline: 20px;
   h4{
-    font-size: 36px;
+    font-size: 26px;
     font-weight: bold;
   }
   p{
@@ -617,6 +617,7 @@ a:hover{
   padding-inline: 27px;
   margin-top: 15px;
   background-color: #fff;
+  margin-bottom: 27px;
   img {
     width: 65px;
     height: 65px;
@@ -647,9 +648,13 @@ a:hover{
 }
 
 .hostvan-detail{
+  margin-inline: 27px;
   padding: 27px;
   display: flex;
   align-items: center;
+  background-color: #FFF;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   img{
     height: 155px;
     border-radius: 5px;
@@ -698,6 +703,8 @@ a:hover{
 }
 
 .hostvan-detail-nav{
+  margin-inline: 27px;
+  background-color: #FFF;
   ul{
     display: flex;
     justify-content: flex-start;
@@ -714,11 +721,17 @@ a:hover{
 }
 
 .host-van-detail-info{
-  padding: 27px;
+  margin-inline: 27px;
+  margin-bottom: 27px;
+  padding-block: 15px;
+  background-color: #FFF;
+  padding-inline: 27px;
   font-size: 14px;
-
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   h4{
-    margin-top: 15px;
+    margin: 0px;
+    padding-bottom: 15px;
   }
   span{
     font-weight: 400;
@@ -726,7 +739,14 @@ a:hover{
   
 }
 .host-van-pricing-info{
-  padding: 27px;
+  margin-inline: 27px;
+  margin-bottom: 27px;
+  padding-block: 15px;
+  background-color: #FFF;
+  padding-inline: 27px;
+  font-size: 14px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   h4{
     margin-top: 15px;
     font-size: 24px;
@@ -739,9 +759,82 @@ a:hover{
 }
 
 .host-van-photos{
-  padding: 27px;
+  margin-inline: 27px;
+  margin-bottom: 27px;
+  padding-block: 15px;
+  background-color: #FFF;
+  padding-inline: 27px;
+  font-size: 14px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   img{
     width: 25%;
     border-radius: 5px;
+  }
+}
+
+.login-wrapper{
+  padding-inline: 27px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1{
+    font-size: 32px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    input {
+      background-color: #FFF;
+      border: 1px solid #D1D5DB;
+      color: #161616;
+      height: 42px;
+      padding-inline: 13px;
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    input:focus, input:active{
+      outline: none;
+      background-color: whitesmoke;
+    }
+    input:focus::placeholder{
+      visibility: hidden;
+    }
+    .top{
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      border-bottom: none;
+    };
+    .bottom{
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+    button{
+      margin: 20px 0;
+      height: 55px;
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      border-radius: 6px;
+      background-color: #FF8C38;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+    button:hover{
+      background-color: rgb(255, 120, 56);
+    }
+  }
+  p{
+    color: #161616;
+    font-weight: 600;
+    margin: 20px 0;
+    font-size: 16px;
+    a{
+      color: #FF8C38;
+    }
   }
 }

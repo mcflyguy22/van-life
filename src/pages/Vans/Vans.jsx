@@ -5,6 +5,7 @@ import { getVans } from '../../api'
 export function Loader() {
     return getVans()
 }
+
 export default function Vans() {
     const [searchParams, setSearchParams ] = useSearchParams()
     const [error, setError] = useState(null)
@@ -20,7 +21,10 @@ export default function Vans() {
             <div key={van.id} className="van">
                 <Link 
                     to={`/vans/${van.id}`} 
-                    state={{ search: `?${searchParams.toString()}`, type: typeFilter }}
+                    state={{ 
+                        search: `?${searchParams.toString()}`, 
+                        type: typeFilter
+                    }}
                     aria-label={`View details for ${van.name}, priced at ${van.price} per day`}
                 >
                 <img className="van-image" src={van.imageUrl}/><br/>
@@ -61,10 +65,22 @@ export default function Vans() {
             <div className="vans-filters">
                 <h1>Explore our van options</h1>
                 <div className="vans-filter-options">
-                    <button onClick={() => handleFilterChange("type", "simple")} className={typeFilter === "simple" ? "simple-vans-active" : "simple-vans"}>Simple</button>
-                    <button onClick={() => handleFilterChange("type", "luxury")} className={typeFilter === "luxury" ? "luxury-vans-active" : "luxury-vans"}>Luxury</button>
-                    <button onClick={() => handleFilterChange("type","rugged")} className={typeFilter === "rugged" ? "rugged-vans-active" : "rugged-vans"}>Rugged</button>
-                    {typeFilter && <button onClick={() => handleFilterChange("type", null)} className="clear-filter">Clear filters</button>}
+                    <button onClick={() => 
+                        handleFilterChange("type", "simple")} 
+                        className={typeFilter === "simple" ? "simple-vans-active" : "simple-vans"}>Simple
+                    </button>
+                    <button onClick={() => 
+                        handleFilterChange("type", "luxury")} 
+                        className={typeFilter === "luxury" ? "luxury-vans-active" : "luxury-vans"}>Luxury
+                        </button>
+                    <button onClick={() => 
+                        handleFilterChange("type","rugged")} 
+                        className={typeFilter === "rugged" ? "rugged-vans-active" : "rugged-vans"}>Rugged
+                    </button>
+                    {typeFilter && <button onClick={() => 
+                        handleFilterChange("type", null)} 
+                        className="clear-filter">Clear filters
+                    </button>}
                 </div>
             </div>
             <div className="vans-list">

@@ -1,24 +1,17 @@
-import {useParams, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { NavLink, Outlet, useLoaderData } from 'react-router-dom'
 import { BsArrowLeft } from "react-icons/bs";
+import { getHostVans } from '../../../api'
+import { requireAuth } from '../../../utils'
+
+export async function Loader({ params }) {
+    await requireAuth()
+    return getHostVans(params.id)
+}
 
 export default function VansDetail() {
-    const params = useParams()
-    const [hostVan, setHostVan] = useState(null)
-    
-    console.log(params)
-
-    useEffect(function() {
-        fetch(`/api/host/vans/${params.id}`)
-            .then(res => res.json())
-            .then(data => setHostVan(data.vans[0]))
-    }, [params.id])
-
-    console.log("host van:", hostVan)
+    const hostVan = useLoaderData()[0]
 
     return (
-    <>
-    {hostVan ? (
         <>
             <span className="backto-allvans"><NavLink to=".." relative="path"><BsArrowLeft /> &nbsp;Back to all vans</NavLink></span>
             <div key={hostVan.id} className="hostvan-detail">
@@ -55,9 +48,7 @@ export default function VansDetail() {
                         </li>
                     </ul>
                 </div>
-                <Outlet context={[hostVan, setHostVan]} />
+                <Outlet context={[hostVan]} />
         </>
-    ) : <h2>Loading...</h2>}
-    </>
     )
 }
