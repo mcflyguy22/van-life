@@ -781,6 +781,10 @@ a:hover{
   h1{
     font-size: 32px;
   }
+  h2{
+    color: red;
+    margin-top: 0;
+  }
   form {
     display: flex;
     flex-direction: column;
@@ -823,6 +827,7 @@ a:hover{
       border: none;
       outline: none;
       cursor: pointer;
+      color: white;
     }
     button:hover{
       background-color: rgb(255, 120, 56);

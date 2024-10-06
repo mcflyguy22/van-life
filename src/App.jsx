@@ -16,7 +16,7 @@ import VanPhotos from './pages/Host/Vans/VanPhotos'
 import VanPricing from './pages/Host/Vans/VanPricing'
 import NotFound from './pages/404.jsx'
 import Error from './components/Error.jsx'
-import Login from './pages/Login.jsx'
+import Login, { Loader as loginLoader, action as loginAction } from './pages/Login.jsx'
 import "./server"
 import { requireAuth } from "./utils"
 
@@ -36,6 +36,8 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route 
         path="/login" 
         element={<Login />} 
+        loader={loginLoader}
+        action={loginAction}
       />
 
       <Route 
@@ -57,17 +59,17 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route 
           index 
           element={<Dashboard />} 
-          loader={async () => await requireAuth()}
+          loader={async ({request}) => await requireAuth(request)}
         />
         <Route 
           path="income" 
           element={<Income />} 
-          loader={async () => await requireAuth()}
+          loader={async ({request}) => await requireAuth(request)}
         />
         <Route 
           path="reviews" 
           element={<Reviews />} 
-          loader={async () => await requireAuth()}
+          loader={async ({request}) => await requireAuth(request)}
         />
         <Route 
           path="vans" 
@@ -82,17 +84,17 @@ const router = createBrowserRouter(createRoutesFromElements(
           <Route 
             index 
             element={<VanInfo />} 
-            loader={async () => await requireAuth()}
+            loader={async ({request}) => await requireAuth(request)}
           />
           <Route 
             path="pricing" 
             element={<VanPricing />} 
-            loader={async () => await requireAuth()}
+            loader={async ({request}) => await requireAuth(request)}
           />
           <Route 
             path="photos" 
             element={<VanPhotos />} 
-            loader={async () => await requireAuth()}
+            loader={async ({request}) => await requireAuth(request)}
           />
         </Route>
       </Route>

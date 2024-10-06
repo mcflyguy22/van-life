@@ -3,14 +3,14 @@ import { BsArrowLeft } from "react-icons/bs";
 import { getHostVans } from '../../../api'
 import { requireAuth } from '../../../utils'
 
-export async function Loader({ params }) {
-    await requireAuth()
+export async function Loader({ params, request }) {
+    await requireAuth(request)
     return getHostVans(params.id)
 }
 
 export default function VansDetail() {
-    const hostVan = useLoaderData()[0]
-
+    const hostVan = useLoaderData()
+    console.log(hostVan)
     return (
         <>
             <span className="backto-allvans"><NavLink to=".." relative="path"><BsArrowLeft /> &nbsp;Back to all vans</NavLink></span>
