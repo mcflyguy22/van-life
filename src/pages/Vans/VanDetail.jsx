@@ -1,31 +1,43 @@
-import { Link, useLocation, useLoaderData } from 'react-router-dom'
+import { Link, useLocation, useLoaderData, defer, Await } from 'react-router-dom'
 import { BsArrowLeft } from "react-icons/bs";
 import { getVans } from '../../api'
+import { Suspense } from 'react';
 
 export function Loader({ params }) {
-    return getVans(params.id)
+    return defer({van: getVans(params.id)})
 }
 
 export default function VanDetail() {
-    const van = useLoaderData()
+    const dataPromise = useLoaderData()
     const location = useLocation()
     const search = location.state?.search || ""
     const type = location.state?.type || "all"
 
+    function renderVanDetailElements(van) {
+        return (
+            <>
+                <div className="van-detail-container">
+                    <span className="all-vans"><Link to={`..${search}`} relative="path"><BsArrowLeft /> &nbsp;Back to {type} vans</Link></span>
+                    <img src={van.imageUrl} />
+                    <br/>
+                    <button className={`${van.type}-vans`}>{van.type}</button>
+                    <br/>
+                    <h1>{van.name}</h1>
+                    <p><strong>${van.price}</strong><small>/day</small></p>
+                    <p>{van.description}</p>
+                </div>
+                <center><button className="rent-van-btn">Rent this van</button></center>
+                <br/>
+            </>
+        )
+    }
     return (
         <>
-            <div className="van-detail-container">
-                <span className="all-vans"><Link to={`..${search}`} relative="path"><BsArrowLeft /> &nbsp;Back to {type} vans</Link></span>
-                <img src={van.imageUrl} />
-                <br/>
-                <button className={`${van.type}-vans`}>{van.type}</button>
-                <br/>
-                <h1>{van.name}</h1>
-                <p><strong>${van.price}</strong><small>/day</small></p>
-                <p>{van.description}</p>
-            </div>
-        <center><button className="rent-van-btn">Rent this van</button></center>
-        <br/>
+            <Suspense fallback={<h2>Loading Van Details...</h2>}>
+                <Await resolve={dataPromise.van}>
+                    {renderVanDetailElements}
+                </Await>
+            </Suspense>
         </>
     )
 }
