@@ -1,6 +1,43 @@
-import { FaStar } from "react-icons/fa";
+import { Link, defer, Await, useLoaderData } from "react-router-dom"
+import { getHostVans } from "../../api/api"
+import { BsStarFill } from "react-icons/bs"
+import { Suspense } from "react"
+
+export async function Loader() {
+    return defer({ hostVans: getHostVans() })
+}
 
 export default function Host() {
+    const dataPromise = useLoaderData()
+
+    function renderVanElements(hostVans) {
+        const vansElements = hostVans.map((van, index) => (
+            <div key={index}>
+                <Link 
+                    to={`/host/vans/${van.id}`} 
+                    aria-label={`View details for ${van.name}`}
+                    className="host-van-link"
+                    state={van.type}
+                >
+                <div key={van.id} className="host-van">
+                        <img src={van.imageUrl}/>
+                        <div>
+                            <p style={{fontWeight: "bold", fontSize: "20px"}}>
+                            {van.name}
+                            </p>
+                            <p>${van.price}/day</p>
+                        </div>
+                </div>
+                </Link>
+            </div>
+        ))
+
+        return (
+            <>
+            {vansElements}
+            </>
+        )
+    }
     return (
         <>
             <div className="host-dash-head">
@@ -15,7 +52,7 @@ export default function Host() {
             </div>
             <div className="host-dash-review">
                 <h4>Review Score</h4>
-                <FaStar style={{color: "orange", height: "24px"}}/>&nbsp;<strong>5.0</strong>/5
+                <BsStarFill style={{color: "orange", height: "24px"}}/>&nbsp;<strong>5.0</strong>/5
                 <div className="host-dash-details">
                     <span>Details</span>
                 </div>
@@ -26,7 +63,11 @@ export default function Host() {
                     <span>View all</span>
                 </div>
                 <div className="host-dash-vanlist">
-                    
+                    <Suspense fallback={<h2>Loading Vans...</h2>}>
+                        <Await resolve={dataPromise.hostVans}>
+                            {renderVanElements}
+                        </Await>
+                    </Suspense>
                 </div>
             </div>
         </>

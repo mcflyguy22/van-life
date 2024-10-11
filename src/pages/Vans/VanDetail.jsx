@@ -1,10 +1,10 @@
 import { Link, useLocation, useLoaderData, defer, Await } from 'react-router-dom'
 import { BsArrowLeft } from "react-icons/bs";
-import { getVans } from '../../api'
+import { getVan } from '../../api/api'
 import { Suspense } from 'react';
 
 export function Loader({ params }) {
-    return defer({van: getVans(params.id)})
+    return defer({van: getVan(params.id)})
 }
 
 export default function VanDetail() {

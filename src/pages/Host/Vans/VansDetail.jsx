@@ -1,12 +1,11 @@
 import { NavLink, Outlet, useLoaderData, defer, Await } from 'react-router-dom'
 import { BsArrowLeft } from "react-icons/bs";
-import { getHostVans } from '../../../api'
-import { requireAuth } from '../../../utils'
+import { getHostVan } from '../../../api/api'
 import { Suspense } from 'react';
 
-export async function Loader({ params, request }) {
-    await requireAuth(request)
-    return defer({hostVan: getHostVans(params.id)})
+export async function Loader({ params }) {
+    // await AuthRequired(request)
+    return defer({hostVan: getHostVan(params.id)})
 }
 
 export default function VansDetail() {

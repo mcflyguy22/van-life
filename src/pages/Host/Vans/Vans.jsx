@@ -1,16 +1,21 @@
 import {Link, useLoaderData, defer, Await } from 'react-router-dom'
-import { getHostVans } from '../../../api'
-import { requireAuth } from '../../../utils'
+import { getHostVans } from '../../../api/api'
+// import { requireAuth } from '../../../AuthRequired'
+// import AuthRequired from '../../../api/AuthRequired'
 import { Suspense } from 'react'
+import { auth } from '../../../api/firebase'
 
-export async function Loader({ params, request }) {
-    await requireAuth(request)
-    return defer({hostVans: getHostVans(params.id)})
+
+export async function Loader() {
+    // await AuthRequired(request)
+    return defer({hostVans: getHostVans()})
 }
 
 export default function Vans() {
     const dataPromise = useLoaderData()
     console.log(dataPromise.hostVans)
+    const uid = auth.currentUser.uid
+    console.log(uid)
     
     function renderHostVanElements(hostVans) {
         const hostVansElements = hostVans.map((van, index) => (

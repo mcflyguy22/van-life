@@ -1,60 +1,91 @@
-import { useActionData, useLoaderData, Form, redirect, useNavigation } from 'react-router-dom'
-import { loginUser } from '../api'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { auth } from "../api/firebase"
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { useState, useContext, useEffect } from 'react'
+import AuthContext from '../api/AuthContext'
 
 export function Loader({ request }) {
     const message = new URL(request.url).searchParams.get("message")
     return message ? message : null
 }
 
-export async function action({ request }) {
-    const formData = await request.formData()
-    const email = formData.get("email")
-    const password = formData.get("password")
-    const pathname = new URL(request.url).searchParams.get("redirectTo") || "/host"
-    console.log(pathname)
-    try {
-        const data = await loginUser({email, password})
-        const successResponse = redirect(pathname)
-        localStorage.setItem("loggedin", true)        
-        return Object.defineProperty(successResponse, "body", {value: true}) 
-    } catch(err) {
-        return err.message
-    }
+// export async function action({ request }) {
+//     const formData = await request.formData()
+//     const email = formData.get("email")
+//     const password = formData.get("password")
+//     const pathname = new URL(request.url).searchParams.get("redirectTo") || "/host"
+//     const auth = getAuth()
 
-}
+//     signInWithEmailAndPassword(auth, email, password)
+//         .then((userCredential) => {
+//             const user = userCredential.user
+//             localStorage.setItem("loggedin", true)        
+//             const successResponse = redirect(pathname)
+//             return Object.defineProperty(successResponse, "body", {value: true}) 
+//         })
+//         .catch((error) => {
+//             const errorCode = error.code;
+//             const errorMessage = error.message;
+//             console.log(errorMessage)
+//         })
+//         return null
+// }
 
 export default function Login() {
-    const message = useLoaderData()
-    const error = useActionData()
-    const navigation = useNavigation()
+    const [error, setError] = useState(false)
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const {user, setUser} = useContext(AuthContext)
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    useEffect(() => {
+        if(user) {
+            // const pathname = new URL(request.url).searchParams.get("redirectTo") || "/host"
+            navigate("/host")
+        }
+    }, [user])
+
+    console.log(email)
+    console.log(password)
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password)  
+            setUser(userCredential.user)
+            console.log(user)
+            return true
+        } catch (error) {
+            setError(true)
+            console.log(error.message)
+        }
+    }
 
     return (
         <div className="login-wrapper">            
             <h1 style={{color: "#000000"}}>Sign in to your account</h1>
-            {message && <h2>{message}</h2>}
+            {location.state?.message && <h2>{location.state.message}</h2>}
             {error && <h2>{error}</h2>}
-            <Form 
-                method="post"
-                replace
-            >
+            <form onSubmit={handleLogin}>
                 <input 
                     className="top"
                     name="email" 
                     type="email" 
-                    placeholder="Email address" 
+                    placeholder="Email address"
+                    onChange={e=>setEmail(e.target.value)}
                 />
                 <input 
                     className="bottom"
                     name="password" 
                     type="password" 
-                    placeholder="Password" 
+                    placeholder="Password"
+                    onChange={e=>setPassword(e.target.value)} 
                 />  
                 <button 
-                    disabled={navigation.state === "submitting" ? true : false}
-                >
-                    {navigation.state === "submitting" ? "Logging in..." : "Log in"}
+                    type="submit">
+                    Log in
                 </button>
-            </Form> 
+            </form> 
             <p>Don't have an account? <a href="#">Create one now</a></p>
         </div>
     )

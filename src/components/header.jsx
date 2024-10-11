@@ -1,10 +1,17 @@
 import { NavLink } from 'react-router-dom'
+import { useContext } from 'react'
 import { FaRegUserCircle } from "react-icons/fa"
+import { auth } from '../api/firebase'
+import AuthContext from '../api/AuthContext'
 
 export default function Header() {
-    function fakeLogOut() {
-        localStorage.removeItem("loggedin")
+    const {user, setUser} = useContext(AuthContext)
+
+    function logOut() {
+        auth.signOut()
+            setUser(null)
     }
+    
     return (
         <div className="navBar">
             <h1 className="home-title"><NavLink to="/">#VANLIFE</NavLink></h1>
@@ -33,7 +40,7 @@ export default function Header() {
                     ><FaRegUserCircle /></NavLink>
                 </li>
                 <li>
-                    <button onClick={fakeLogOut}>X</button>
+                    <button onClick={logOut}>X</button>
                 </li>
             </ul>
       </div>

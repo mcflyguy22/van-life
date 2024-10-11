@@ -2,6 +2,12 @@ import Charts from '../../../public/barchart.png'
 
 
 export default function Income() {
+    const transactionsData = [
+        { amount: 720, date: "1/3/2023", id: "1" },
+        { amount: 560, date: "12/12/2022", id: "2" },
+        { amount: 980, date: "12/3/2022", id: "3" },
+    ]
+    
     return (
         <>
             <div className="income-head">
@@ -13,18 +19,14 @@ export default function Income() {
                     <strong>Your transactions (3)</strong>
                     <p>Last <span>30 days</span></p>
                 </div>
-                <div className="transaction">
-                    <h4>$720</h4>
-                    <p>1/12/22</p>
-                </div>
-                <div className="transaction">
-                    <h4>$560</h4>
-                    <p>10/11/22</p>
-                </div>
-                <div className="transaction">
-                    <h4>$980</h4>
-                    <p>11/23/2022</p>
-                </div>
+                {transactionsData.map((item, index) => (
+
+                        <div key={index} className="transaction">
+                            <h4>${item.amount}</h4>
+                            <p>{item.date}</p>
+                        </div>
+
+                ))}
             </div>
         </>
     )

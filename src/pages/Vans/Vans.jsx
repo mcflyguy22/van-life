@@ -1,6 +1,6 @@
-import { useState, Suspense } from 'react'
+import { Suspense } from 'react'
 import { Link, useSearchParams, useLoaderData, defer, Await } from 'react-router-dom'
-import { getVans } from '../../api'
+import { getVans } from '../../api/api'
 
 export function Loader() {
     return defer({vans: getVans()})
@@ -8,7 +8,6 @@ export function Loader() {
 
 export default function Vans() {
     const [searchParams, setSearchParams ] = useSearchParams()
-    const [error, setError] = useState(null)
     const dataPromise = useLoaderData()
     const typeFilter = searchParams.get("type")
     function handleFilterChange(key, value) {
@@ -20,13 +19,6 @@ export default function Vans() {
           }
           return prevParams
         })
-      }
-    
-    if (error) {
-        return <h1 style={{
-            color: "#000000", 
-            marginLeft: "27px"
-            }} aria-live="assertive">There was an error: {error.message}</h1>
     }
 
     function renderVanElements(vans) {
