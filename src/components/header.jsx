@@ -1,17 +1,16 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useContext } from 'react'
-import { FaRegUserCircle } from "react-icons/fa"
+import { FaRegUserCircle, FaSignOutAlt } from "react-icons/fa"
+import { GoSignOut } from "react-icons/go";
 import { auth } from '../api/firebase'
 import AuthContext from '../api/AuthContext'
 
 export default function Header() {
-    const navigate = useNavigate()
     const {user, setUser} = useContext(AuthContext)
 
     function logOut() {
         auth.signOut()
         setUser(null)
-        navigate("/login")
         console.log('logged out')
     }
     
@@ -19,12 +18,12 @@ export default function Header() {
         <div className="navBar">
             <h1 className="home-title"><NavLink to="/">#VANLIFE</NavLink></h1>
             <ul>
-                <li>
+                {user && <li>
                     <NavLink 
                         to="/host"
                         className={({isActive}) => isActive ? "my-link" : ""}
                     >Host</NavLink>
-                </li>
+                </li>}
                 <li>
                     <NavLink 
                         to="/about"
@@ -40,11 +39,11 @@ export default function Header() {
                 <li>
                     <NavLink 
                         to="/login"
-                    ><FaRegUserCircle /></NavLink>
+                    >{user ? <FaRegUserCircle /> : "Log In"}</NavLink>
                 </li>
-                <li>
-                    <button onClick={logOut}>X</button>
-                </li>
+                {user && <li style={{backgroundColor: "none"}}>
+                    <button onClick={logOut}><FaSignOutAlt /></button>
+                </li>}
             </ul>
       </div>
     )
