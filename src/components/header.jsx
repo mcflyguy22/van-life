@@ -1,15 +1,18 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { FaRegUserCircle } from "react-icons/fa"
 import { auth } from '../api/firebase'
 import AuthContext from '../api/AuthContext'
 
 export default function Header() {
+    const navigate = useNavigate()
     const {user, setUser} = useContext(AuthContext)
 
     function logOut() {
         auth.signOut()
-            setUser(null)
+        setUser(null)
+        navigate("/login")
+        console.log('logged out')
     }
     
     return (
