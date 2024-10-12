@@ -11,18 +11,20 @@ export default function AddVan() {
     const [file, setFile] = useState("")
     const [per, setPerc] = useState(null);
     const [error, setError] = useState(null)
+    const [imageArr, setImageArr] = useState(hostVan.imageUrl)
     const [formData, setFormData] = useState({
         hostId: uid,
         name: hostVan.name,
         description: hostVan.description,
         price: hostVan.price,
         type: hostVan.type,
-        imageUrl: hostVan.imageUrl
+        imageUrl: imageArr
     })
     const navigate = useNavigate()
+    console.log(imageArr)
+    console.log("formData: ", formData.imageUrl)
 
-
-    var imageUrlName = hostVan.imageUrl.split("/")
+    var imageUrlName = hostVan.imageUrl[0].split("/")
     imageUrlName = imageUrlName[imageUrlName.length - 1]
     imageUrlName = imageUrlName.split("?")[0]
     console.log(imageUrlName)
@@ -57,14 +59,29 @@ export default function AddVan() {
             }, 
             () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                setFormData((prevFormData) => ({...prevFormData, imageUrl:downloadURL}))
+                setImageArr(prevImages => [...prevImages, downloadURL])
             });
             }
         );
         }
-
         file && uploadFile()
     }, [file])
+
+    // function imageDelete(id) {
+    //     var newImageArr = []
+    //     for (let i=0; i<imageArr.length; i++) {
+    //         (i !== id) ? newImageArr.push(imageArr[i]) : null
+    //     }
+    //     setImageArr(newImageArr)
+    //     setFormData((prevFormData) => ({...prevFormData, imageUrl: imageArr}))
+    // }
+
+    // const renderImageElements = imageArr.map((image, index) => {
+    //     return (<div key={index}>
+    //         <img src={image}/>
+    //         <button onClick={imageDelete(index)}>Remove</button>
+    //     </div>
+    // )})
 
     function handleChange(event) {
         const {name, value } = event.target;
@@ -95,6 +112,10 @@ export default function AddVan() {
             console.log(error.message)
         }
     }
+
+    useEffect(() => {
+        setFormData(prevFormData => ({...prevFormData, imageUrl: imageArr}))
+    }, [imageArr])
 
     console.log(formData)
     return (
@@ -147,7 +168,7 @@ export default function AddVan() {
                     <option value="rugged">Rugged</option>
                 </select>
                 <label htmlFor="imageUrl" className="file-btn">
-                  Image: <FaFileUpload />
+                  Add Image: <FaFileUpload />
                 </label>
                 <input
                   type="file"
@@ -156,7 +177,7 @@ export default function AddVan() {
                   required={false}
                   id="imageUrl"
                 />
-                {formData.imageUrl && <p style={{color: "red"}}>Current image: {imageUrlName}</p>}
+                {/* {formData.imageUrl && <p style={{color: "red"}}>Current images: {imageUrlName}</p>} */}
                 <button disabled={per !== null && per < 100} type="submit">Save Changes</button>
             </form>
             </div>
