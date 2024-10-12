@@ -5,7 +5,7 @@ export default function VanPhotos() {
 
     return (
         <div className="host-van-photos">
-            <img src={hostVan.imageUrl} />            
+            <img src={hostVan.imageUrl} />          
         </div>
     )
 }

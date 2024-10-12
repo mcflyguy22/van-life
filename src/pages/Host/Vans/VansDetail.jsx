@@ -2,6 +2,7 @@ import { NavLink, Outlet, useLoaderData, defer, Await, Link } from 'react-router
 import { BsArrowLeft } from "react-icons/bs";
 import { getHostVan } from '../../../api/api'
 import { Suspense } from 'react';
+import { FaEdit } from "react-icons/fa";
 
 export async function Loader({ params }) {
     return defer({hostVan: getHostVan(params.id)})
@@ -44,6 +45,13 @@ export default function VansDetail() {
                                     className={({isActive}) => isActive ? "my-link" : ""}
                                     hostVan={hostVan}
                                 >Photos</NavLink>
+                            </li>
+                            <li>
+                                <NavLink 
+                                    to="edit-van"
+                                    hostVan={hostVan}
+                                    className="editVan"
+                                ><FaEdit /></NavLink>
                             </li>
                         </ul>
                 </div>

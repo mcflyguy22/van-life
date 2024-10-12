@@ -1,4 +1,4 @@
-import { useOutletContext, Link } from "react-router-dom"
+import { useOutletContext } from "react-router-dom"
 
 
 export default function VanDetail() {
@@ -10,7 +10,6 @@ export default function VanDetail() {
             <h4 style={{color: "#000000"}}>Category: <span>{hostVan.type}</span></h4>
             <h4 style={{color: "#000000"}}>Description: <span>{hostVan.description}</span></h4>
             <h4 style={{color: "#000000"}}>Visibility: <span>Public</span></h4>
-            <Link to="edit-van"><button className="add-van-btn">Update Van Details</button></Link>
         </section>
     )
 }

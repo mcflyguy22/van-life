@@ -100,7 +100,7 @@ export default function AddVan() {
     return (
         <div className="host-van-detail-info">
             <div className="add-van-form">
-            <h1 style={{color: "black"}}>Edit (Insert Van Name)</h1>
+            <h1 style={{color: "black"}}>Edit {hostVan.name}</h1>
             {error && <h2 style={{color: "red"}}>{error}</h2>}
             <form onSubmit={handleAdd}>
                 <label htmlFor="name">Van Name:</label>
@@ -157,7 +157,7 @@ export default function AddVan() {
                   id="imageUrl"
                 />
                 {formData.imageUrl && <p style={{color: "red"}}>Current image: {imageUrlName}</p>}
-                <button disabled={per !== null && per < 100} type="submit">Update Van</button>
+                <button disabled={per !== null && per < 100} type="submit">Save Changes</button>
             </form>
             </div>
         </div>

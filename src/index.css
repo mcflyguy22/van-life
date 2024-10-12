@@ -989,3 +989,11 @@ a:hover{
 .add-van-btn:hover{
   background-color: rgb(255, 120, 56);
 }
+
+.editVan{
+  color: #FF8C38;;
+}
+
+.editVan:hover{
+  color: rgb(255, 120, 56);
+}
