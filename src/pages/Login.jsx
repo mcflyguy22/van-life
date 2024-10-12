@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { auth } from "../api/firebase"
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useState, useContext, useEffect } from 'react'
@@ -86,7 +86,7 @@ export default function Login() {
                     Log in
                 </button>
             </form> 
-            <p>Don't have an account? <a href="#">Create one now</a></p>
+            <p>Don't have an account? <Link to="/Register">Create one now</Link></p>
         </div>
     )
 }

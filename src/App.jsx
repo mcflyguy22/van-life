@@ -3,7 +3,7 @@ import About from './pages/About'
 import Home from './pages/Home'
 import Vans, { Loader as vansLoader } from './pages/Vans/Vans'
 import VanDetail, { Loader as vanDetailLoader } from './pages/Vans/VanDetail'
-import { RouterProvider, Navigate, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
 import Layout from './components/layouts'
 import Dashboard, { Loader as dashboardLoader } from './pages/Host/Dashboard'
 import Income from './pages/Host/Income'
@@ -14,11 +14,12 @@ import HostVanDetail, { Loader as hostVansDetailLoader } from './pages/Host/Vans
 import VanInfo from './pages/Host/Vans/VanInfo.jsx'
 import VanPhotos from './pages/Host/Vans/VanPhotos'
 import VanPricing from './pages/Host/Vans/VanPricing'
+import AddVan from './pages/Host/Vans/AddVan.jsx'
+import EditVan from './pages/Host/Vans/EditVan.jsx'
 import NotFound from './pages/404.jsx'
 import Error from './components/Error.jsx'
 import Login, { Loader as loginLoader } from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
-// import "./server"
 import AuthRequired from './api/AuthRequired.jsx'
 import { AuthProvider } from './api/AuthProvider.jsx'
 
@@ -41,13 +42,11 @@ const router = createBrowserRouter(createRoutesFromElements(
         path="/login" 
         element={<Login />} 
         loader={loginLoader}
-        // action={loginAction}
       />
       <Route 
         path="/register" 
         element={<Register />} 
         loader={loginLoader}
-        // action={loginAction}
       />
 
       <Route 
@@ -87,6 +86,10 @@ const router = createBrowserRouter(createRoutesFromElements(
             loader={hostVansLoader}
           />
           <Route 
+            path="vans/add-van"
+            element={<AddVan />}
+          />
+          <Route 
             path="vans/:id" 
             element={<HostVanDetail />}
             errorElement={<Error />} 
@@ -103,6 +106,10 @@ const router = createBrowserRouter(createRoutesFromElements(
             <Route 
               path="photos" 
               element={<VanPhotos />} 
+            />
+            <Route
+              path="edit-van"
+              element={<EditVan />}
             />
           </Route>
         </Route>

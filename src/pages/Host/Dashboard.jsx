@@ -11,7 +11,8 @@ export default function Host() {
     const dataPromise = useLoaderData()
 
     function renderVanElements(hostVans) {
-        const vansElements = hostVans.map((van, index) => (
+        if (hostVans.length > 0) {
+            const vansElements = hostVans.map((van, index) => (
             <div key={index}>
                 <Link 
                     to={`/host/vans/${van.id}`} 
@@ -35,9 +36,15 @@ export default function Host() {
         return (
             <>
             {vansElements}
+            <Link to="vans/add-van"><button className="add-van-btn">Add a Van!</button></Link>
             </>
         )
+    } else {
+        return (
+            <p>You currently have no listed vans. <Link style={{color: "#FF8C38"}} to="add-van">Click here to add a van!</Link></p>
+        )
     }
+}
     return (
         <>
             <div className="host-dash-head">
@@ -60,7 +67,7 @@ export default function Host() {
             <div className="host-dash-vans">
                 <div>
                     <h4>Your listed vans</h4>
-                    <span>View all</span>
+                    <span><Link to="vans">View all</Link></span>
                 </div>
                 <div className="host-dash-vanlist">
                     <Suspense fallback={<h2>Loading Vans...</h2>}>

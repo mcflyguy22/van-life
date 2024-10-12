@@ -1,4 +1,4 @@
-import {  } from 'react-router-dom'
+import { redirect, useNavigate } from 'react-router-dom'
 import { auth, db } from "../api/firebase"
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useState } from 'react'
@@ -16,7 +16,7 @@ export default function Register() {
     const [lastName, setLastName] = useState("")
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
-
+    const navigate = useNavigate()
 
     console.log(email)
     console.log(firstName)
@@ -27,26 +27,21 @@ export default function Register() {
     const handleRegister = async (e) => {
         e.preventDefault()
         try {
-            createUserWithEmailAndPassword(auth, email, password)
-            const user = auth.currentUser
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+            const user = userCredential.user
             console.log(user)
+            setError(null)
             if (user) {
-                await setDoc(doc(db, "Users", user.uid), {
+                await setDoc(doc(db, "Users", user.email), {
                     email: user.email,
                     firstName: firstName,
-                    lastName: lastName
+                    lastName: lastName,
+                    hostId: user.uid
                 })
-            } else {
-                await setDoc(doc(db, "Users", user.uid), {
-                    email: email,
-                    firstName: firstName,
-                    lastName: lastName
-            })
-        }
-            toast.success("User Created Successfully!")
-            console.log("User Created Successfully!")
-        } catch (error) {
-            console.log(error.message)
+                navigate("/host")
+            } 
+        } catch(error) {
+            return setError(error.message)
         }
     }
 
@@ -86,7 +81,7 @@ export default function Register() {
                 <input 
                     className="bottom"
                     name="password2" 
-                    type="password2" 
+                    type="password" 
                     placeholder="Confirm Password"
                     onChange={e=>setPassword2(e.target.value)} 
                 />  

@@ -1,24 +1,19 @@
 import {Link, useLoaderData, defer, Await } from 'react-router-dom'
 import { getHostVans } from '../../../api/api'
-// import { requireAuth } from '../../../AuthRequired'
-// import AuthRequired from '../../../api/AuthRequired'
 import { Suspense } from 'react'
-import { auth } from '../../../api/firebase'
 
 
 export async function Loader() {
-    // await AuthRequired(request)
+
     return defer({hostVans: getHostVans()})
 }
 
 export default function Vans() {
     const dataPromise = useLoaderData()
-    console.log(dataPromise.hostVans)
-    const uid = auth.currentUser.uid
-    console.log(uid)
     
     function renderHostVanElements(hostVans) {
-        const hostVansElements = hostVans.map((van, index) => (
+        if (hostVans.length > 0) {
+            const hostVansElements = hostVans.map((van, index) => (
             <div key={index}>
                 <Link 
                     to={`/host/vans/${van.id}`} 
@@ -42,7 +37,8 @@ export default function Vans() {
                 {hostVansElements}
             </>            
         )
-    }
+    } else { return <p>You currently have no listed vans. <Link style={{color: "#FF8C38"}} to="add-van">Click here to add a van!</Link></p>}
+}
 
     return (
         <div className="vans-container">
@@ -53,6 +49,7 @@ export default function Vans() {
                         {renderHostVanElements}
                     </Await>
                 </Suspense>
+                <Link to="add-van"><button className="add-van-btn">Add a Van!</button></Link>
             </div>
         </div>
     )

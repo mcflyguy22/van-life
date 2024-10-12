@@ -917,3 +917,75 @@ a:hover{
   font-weight: 900;
 }
 
+.add-van-form{
+  padding-inline: 27px;
+  form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    label{
+      color: #4d4d4d;
+    }
+    input, select{
+      border: 1px solid whitesmoke;
+      outline: none;
+      border-radius: 5px;
+      padding-inline: 10px;
+      background-color: #FFFFFF;
+      height: 30px;
+      font-size: 14px;
+      font-family: "Inter", sans-serif;
+      color: #4d4d4d;
+      button{
+        border: none;
+        outline: none;
+        margin: 0;
+        background-color: #4d4d4d;
+      }
+    }
+    textarea{
+      border: 1px solid whitesmoke;
+      outline: none;
+      border-radius: 5px;
+      padding-inline: 10px;
+      background-color: #FFFFFF;
+      font-size: 14px;
+      font-family: "Inter", sans-serif;
+      color: #4d4d4d;
+    }
+    button{
+      margin: 20px 0;
+      height: 33px;
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      border-radius: 6px;
+      background-color: #4d4d4d;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      color: white;
+    }
+    button:hover{
+      background-color: rgb(67, 67, 67);
+    }
+  }
+}
+
+.add-van-btn{
+  width: 100%;
+  margin: 20px 0;
+  height: 55px;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 6px;
+  background-color: #FF8C38;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: white;
+}
+.add-van-btn:hover{
+  background-color: rgb(255, 120, 56);
+}

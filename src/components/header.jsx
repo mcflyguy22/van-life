@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useContext } from 'react'
 import { FaRegUserCircle, FaSignOutAlt } from "react-icons/fa"
-import { GoSignOut } from "react-icons/go";
 import { auth } from '../api/firebase'
 import AuthContext from '../api/AuthContext'
 
@@ -36,11 +35,11 @@ export default function Header() {
                         className={({isActive}) => isActive ? "my-link" : ""}
                     >Vans</NavLink>
                 </li>
-                <li>
+                {!user && <li>
                     <NavLink 
                         to="/login"
-                    >{user ? <FaRegUserCircle /> : "Log In"}</NavLink>
-                </li>
+                    ><FaRegUserCircle /></NavLink>
+                </li>}
                 {user && <li style={{backgroundColor: "none"}}>
                     <button onClick={logOut}><FaSignOutAlt /></button>
                 </li>}
