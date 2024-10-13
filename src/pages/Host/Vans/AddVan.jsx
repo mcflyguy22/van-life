@@ -16,7 +16,7 @@ export default function AddVan() {
         description: "",
         price: 0,
         type: "",
-        imageUrl: ""
+        imageUrl: []
     })
 
     const navigate = useNavigate()
@@ -51,7 +51,9 @@ export default function AddVan() {
             }, 
             () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                setFormData((prevFormData) => ({...prevFormData, imageUrl:downloadURL}))
+                var newImageArr = []
+                newImageArr.push(downloadURL)
+                setFormData((prevFormData) => ({...prevFormData, imageUrl:newImageArr}))
             });
             }
         );

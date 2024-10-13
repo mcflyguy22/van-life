@@ -20,8 +20,8 @@ export default function VanPhotos() {
     }
     )
 
-    console.log(hostVan.imageUrl)
-    console.log(imageArr)
+    console.log("hostVan.imageUrl: ", hostVan.imageUrl)
+    console.log("imageArr: ", imageArr)
 
     function imageDelete(id) {
         var newImageArr = []
@@ -32,9 +32,20 @@ export default function VanPhotos() {
         setImageArr(newImageArr)
     }
 
+    function makeMain(id) {
+        var newImageArr = []
+        for (let i=0; i<imageArr.length; i++) {
+            (i !== id) ? newImageArr.push(imageArr[i]) : newImageArr.unshift(imageArr[i])
+        }
+
+        setImageArr(newImageArr)
+    }
+
     useEffect(() => {
         setFormData((prevFormData) => ({...prevFormData, imageUrl: imageArr}))
     }, [imageArr])
+
+
 
     const handleSubmit = async(e) => {
         e.preventDefault()
@@ -57,10 +68,22 @@ export default function VanPhotos() {
     }
 
     const imageElements = imageArr.map((image, index) => {
+        var imageUrlName = image.split("/")
+        imageUrlName = imageUrlName[imageUrlName.length - 1]
+        imageUrlName = imageUrlName.split("?")[0]
+        console.log(imageUrlName)
+        
         return (
-        <div key={index}>
+        <div key={index} style={{display: "flex", marginTop: "27px"}}>
             <img src={image}/>
-            <button onClick={() => imageDelete(index)}>Remove</button>
+            <div style={{marginInline: "27px", display: "flex", flexDirection: "column", rowGap: "8px", alignItems: "start", justifyContent: "center"}}>
+                <p style={{color: "black", margin: "0"}}>Image #{index + 1}</p>
+                <p style={{color: "black", margin: "0"}}>Filename: {imageUrlName}</p>
+                <span>
+                <button style={{marginRight: "10px", borderRadius: "6px", outline: "none", backgroundColor: "red"}} onClick={() => imageDelete(index)}>Remove Image</button>
+                {(index > 0) ? <button style={{marginRight: "10px", borderRadius: "6px", outline: "none", backgroundColor: "green"}} onClick={() => makeMain(index)}>Set as Main</button> : <i style={{color: "black"}}>Main Image</i>}
+                </span>
+            </div>
         </div>
     )})
 
@@ -69,7 +92,7 @@ export default function VanPhotos() {
         <div className="host-van-photos">
             {error && <h2 style={{color: "red"}}>{error.message}</h2>}
             {imageElements}
-            <button onClick={handleSubmit}>Save Changes</button>     
+            <button className="save-photos-btn" onClick={handleSubmit}>Save Changes</button>     
         </div>
     )
 }

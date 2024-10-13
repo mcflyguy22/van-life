@@ -21,13 +21,9 @@ export default function AddVan() {
         imageUrl: imageArr
     })
     const navigate = useNavigate()
-    console.log(imageArr)
+    console.log("imageArr: ", imageArr)
     console.log("formData: ", formData.imageUrl)
 
-    var imageUrlName = hostVan.imageUrl[0].split("/")
-    imageUrlName = imageUrlName[imageUrlName.length - 1]
-    imageUrlName = imageUrlName.split("?")[0]
-    console.log(imageUrlName)
 
     useEffect(() => {
         const uploadFile = () => {
@@ -67,22 +63,6 @@ export default function AddVan() {
         file && uploadFile()
     }, [file])
 
-    // function imageDelete(id) {
-    //     var newImageArr = []
-    //     for (let i=0; i<imageArr.length; i++) {
-    //         (i !== id) ? newImageArr.push(imageArr[i]) : null
-    //     }
-    //     setImageArr(newImageArr)
-    //     setFormData((prevFormData) => ({...prevFormData, imageUrl: imageArr}))
-    // }
-
-    // const renderImageElements = imageArr.map((image, index) => {
-    //     return (<div key={index}>
-    //         <img src={image}/>
-    //         <button onClick={imageDelete(index)}>Remove</button>
-    //     </div>
-    // )})
-
     function handleChange(event) {
         const {name, value } = event.target;
         setFormData(prevFormData => {
@@ -114,10 +94,12 @@ export default function AddVan() {
     }
 
     useEffect(() => {
-        setFormData(prevFormData => ({...prevFormData, imageUrl: imageArr}))
+        setFormData(prevFormData => ({
+            ...prevFormData, 
+            imageUrl: imageArr
+        }))
     }, [imageArr])
 
-    console.log(formData)
     return (
         <div className="host-van-detail-info">
             <div className="add-van-form">
