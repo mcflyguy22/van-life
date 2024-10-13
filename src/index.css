@@ -1099,7 +1099,7 @@ a:hover{
   font-weight: 700;
   font-size: 16px;
   border-radius: 6px;
-  background-color: #FF8C38;
+  background-color: #4d4d4d;
   border: none;
   outline: none;
   cursor: pointer;
@@ -1107,5 +1107,5 @@ a:hover{
 }
 
 .save-photos-btn:hover{
-  background-color: rgb(255, 120, 56);
+  background-color: rgb(67, 67, 67);
 }
