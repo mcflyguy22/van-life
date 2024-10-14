@@ -60,7 +60,7 @@ export default function VanPhotos() {
                 imageUrl: formData.imageUrl
             })
             console.log(res)
-            navigate("/host")
+            navigate(".")
         } catch(error){
             setError(error.message)
             console.log(error.message)

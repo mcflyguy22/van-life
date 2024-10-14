@@ -15,7 +15,7 @@ export default function VansDetail() {
             return (
             <>
                 <div key={hostVan.id} className="hostvan-detail">
-                        <img src={hostVan.imageUrl} />
+                        <img src={hostVan.imageUrl[0]} />
                         <div>
                             <button className={`${hostVan.type}-vans`}>{hostVan.type}</button>
                             <h1>{hostVan.name}</h1>
