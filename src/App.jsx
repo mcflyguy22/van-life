@@ -24,6 +24,7 @@ import Login, { Loader as loginLoader } from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import AuthRequired from './api/AuthRequired.jsx'
 import { AuthProvider } from './api/AuthProvider.jsx'
+import { PrimeReactProvider } from 'primereact/api';
 
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -136,9 +137,11 @@ const router = createBrowserRouter(createRoutesFromElements(
 export default function App() {
 
   return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <PrimeReactProvider>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </PrimeReactProvider>
   )
 }
 

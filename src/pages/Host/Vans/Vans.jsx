@@ -22,7 +22,7 @@ export default function Vans() {
                     state={van.type}
                 >
                 <div key={van.id} className="host-van">
-                        <img src={van.imageUrl}/>
+                        <img src={van.imageUrl[0]}/>
                         <div>
                             <strong>{van.name}</strong>
                             <p>${van.price}/day</p>

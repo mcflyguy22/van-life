@@ -1177,3 +1177,109 @@ a:hover{
     }
   }
 }
+
+.booking-form-container{
+  margin-inline: 27px;
+  form{
+  display: flex;
+  flex-direction: column;
+  label{
+    color: #4d4d4d;
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:active{
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: #4d4d4d;
+  }
+  .booking-input{
+    background-color: transparent;
+    border: 1px solid #aaaaaac5;
+    height: 40px;
+    border-radius: 4px;
+    padding-inline: 12px;
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: black;
+    &:hover{
+      border: 1px solid light;
+    };
+    &:active{
+      background-color: transparent;
+    }
+  }
+  .booking-input:focus{
+    border: 1px solid red;
+  }
+  }
+  .order-btn{
+    width: 100%;
+    margin-top: 15px;
+    height: 30px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 6px;
+    background-color: #4d4d4d;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white; 
+  }
+  
+  .order-btn:hover{
+    background-color: rgb(67, 67, 67);
+  }
+}
+
+.order-modal{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 70%;
+  background-color: #FFDDB2;
+  -webkit-box-shadow: -4px 4px 10px 5px rgba(0,0,0,0.2);
+  -moz-box-shadow: -4px 4px 10px 5px rgba(0,0,0,0.2);
+  box-shadow: -4px 4px 10px 5px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  h1{
+    padding-inline: 6px;
+    margin: 6px 0 0 0;
+  }
+  p{
+    color: #4d4d4d;
+    font-size: 12px;
+    padding-inline: 6px;
+    margin: 0;
+  }
+  button{
+    width: 50%;
+    margin-top: 15px;
+    height: 30px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white; 
+  }
+  
+  .order-btn-cancel{
+    background-color: rgb(215, 0, 0);
+    &:hover{
+      background-color: rgb(235, 0, 0);
+    }
+  }
+
+  .order-btn-confirm{
+    background-color: rgb(25, 115, 64);
+    &:hover{
+      background-color: rgb(25, 135, 84);
+    }
+  }
+}
