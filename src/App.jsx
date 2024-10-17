@@ -5,6 +5,7 @@ import Vans, { Loader as vansLoader } from './pages/Vans/Vans'
 import VanDetail, { Loader as vanDetailLoader } from './pages/Vans/VanDetail'
 import VanDetailInfo from './pages/Vans/VanDetailInfo.jsx'
 import BookingPage from './pages/Vans/Booking.jsx'
+import OrderSuccess from './pages/Vans/OrderSuccess.jsx'
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
 import Layout from './components/layouts'
 import Dashboard, { Loader as dashboardLoader } from './pages/Host/Dashboard'
@@ -57,6 +58,10 @@ const router = createBrowserRouter(createRoutesFromElements(
         element={<Vans />} 
         errorElement={<Error />} 
         loader={vansLoader} 
+      />
+      <Route
+        path="success"
+        element={<OrderSuccess />}
       />
       <Route 
         path="vans/:id" 

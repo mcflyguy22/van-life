@@ -21,7 +21,7 @@ export default function Host() {
                     state={van.type}
                 >
                 <div key={van.id} className="host-van">
-                        <img src={van.imageUrl}/>
+                        <img src={van.imageUrl[0]}/>
                         <div>
                             <p style={{fontWeight: "bold", fontSize: "20px"}}>
                             {van.name}

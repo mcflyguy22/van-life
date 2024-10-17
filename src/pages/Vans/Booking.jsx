@@ -1,33 +1,40 @@
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, Link, useNavigate } from "react-router-dom"
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import AuthContext from "../../api/AuthContext";
 import ConfirmOrder from "./ConfirmOrder";
-
+import { doc, getDoc, setDoc, addDoc, collection } from "firebase/firestore";
+import { db } from "../../api/firebase";
+import dayjs from "dayjs";
 
 export default function BookingPage() {
-
+    const navigate = useNavigate()
+    const van = useOutletContext()
+    const {user, setUser} = useContext(AuthContext)
+    const uid = user ? user.uid : null
+    console.log("uid: ", uid)
     const [confirmToggle, setConfirmToggle] = useState(false)
     const [pickUp, setPickUp] = useState(null);
     const [dropOff, setDropOff] = useState(null)
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
-        email: "",
+        email: user ? user.email : "",
         beginDate: null,
         endDate: null,
+        van: van.id,
+        user: uid
     })
-    
-    const van = useOutletContext()
 
+    const currentDate = dayjs()
     const totalDays = (formData.endDate && formData.beginDate) ? formData.endDate.diff(formData.beginDate, "day") : 0
     const totalPrice = (formData.endDate && formData.beginDate) ? totalDays * van.price : 0
     const salesTax = (totalPrice !== 0) ? totalPrice * .06875 : 0
     const orderTotal = (totalPrice !== 0) ? (totalPrice + salesTax).toFixed(2) : 0
 
-    // (formData.beginDate && formData.endDate) ? console.log("days total: ", formData.endDate.diff(formData.beginDate, "day")) : console.log("hi")
     console.log(formData)
     function handleChange(event) {
         const {name, value } = event.target;
@@ -39,6 +46,26 @@ export default function BookingPage() {
         })
     }
 
+
+    useEffect(() => {
+        if (user) {
+            const fetchData = async () => {
+            const docRef = doc(db, "Users", user.email)
+            const userSnapshot = await getDoc(docRef)
+            
+            setFormData(prevFormData => ({
+                ...prevFormData,
+                firstName: userSnapshot.data().firstName,
+                lastName: userSnapshot.data().lastName,
+            }))
+        }
+            
+          fetchData()
+    } else {
+        return console.log("no user logged in")
+    }
+    }, [])
+    
     useEffect(() => {
         setFormData(prevFormData => ({
             ...prevFormData,
@@ -52,16 +79,35 @@ export default function BookingPage() {
             ...prevFormData,
             orderTotal: orderTotal | 0
         }))
-    }, [formData])
+    }, [orderTotal])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e, type) => {
         e.preventDefault()
-        setConfirmToggle(true)
+        if (!type) {
+            setConfirmToggle(true)
+        } else {
+            const createOrder = async () => {
+                        await addDoc(collection(db, "Orders"), {
+                            firstName: formData.firstName,
+                            lastName: formData.lastName,
+                            email: formData.email,
+                            beginDate: formData.beginDate.$d.toLocaleDateString("en-US"),
+                            endDate: formData.endDate.$d.toLocaleDateString("en-US"),
+                            van: formData.van,
+                            user: formData.user,
+                            status: "Pending"
+                        })
+                        navigate("/success")
+                    }
+            createOrder()
+        }
     }
+
     return (
     <div className="booking-form-container">
+        {!user && <p style={{fontSize: "12px", color: "red"}}>Please consider <Link to="Register">registering</Link> and/or logging in for an improved experience! Thank you.</p>}
         <h2 style={{color: "#4d4d4d"}}>Customer Details</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e, false)}>
         <div style={{display: "flex", columnGap: "10px"}}>
             <div style={{display: "flex", width: "50%", flexDirection: "column"}}>
             <label htmlFor="firstName">First Name:</label>
@@ -117,6 +163,7 @@ export default function BookingPage() {
                         value={pickUp}
                         id="pickup"
                         onChange={(newValue) => setPickUp(newValue)}
+                        minDate={currentDate}
                         />
                     </div>
                     <div style={{display: "flex", width: "50%", flexDirection: "column", rowGap: "10px"}}>
@@ -125,11 +172,13 @@ export default function BookingPage() {
                         value={dropOff}
                         id="dropoff"
                         onChange={(newValue) => setDropOff(newValue)}
+                        minDate={formData.beginDate && formData.beginDate}
                         />
                     </div>
                 </div>
             </DemoContainer>
             </LocalizationProvider>
+
                 <h2 style={{color: "#4d4d4d"}}>Order Summary</h2>
                     <div style={{display: "flex", flexDirection: "column", color: "#4d4d4d", backgroundColor: "white", padding: "10px", borderRadius: "5px"}}>
                         <div style={{display: "flex", justifyContent: "space-between", fontSize: "14px"}}>
@@ -154,7 +203,7 @@ export default function BookingPage() {
                         </div>
                         <button type="" className="order-btn">Confirm Order</button>
                     </div>
-                        {confirmToggle && <div className="order-modal"><ConfirmOrder confirmToggle={confirmToggle} setConfirmToggle={setConfirmToggle} formData={formData} van={van} totalDays={totalDays} totalPrice={totalPrice} salesTax={salesTax} orderTotal={formData.orderTotal | 0}/></div>}
+                        {confirmToggle && <div className="order-modal"><ConfirmOrder confirmToggle={confirmToggle} setConfirmToggle={setConfirmToggle} formData={formData} van={van} totalDays={totalDays} totalPrice={totalPrice} salesTax={salesTax} orderTotal={formData.orderTotal | 0} handleSubmit={handleSubmit}/></div>}
         </form>
         <br/>
     </div>
