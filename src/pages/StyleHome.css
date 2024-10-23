@@ -3,7 +3,7 @@
     width: 100%;
     margin: 0;
     padding: 0;
-    background-image: url('../public/home_bg.png');
+    background-image: url('../home_bg.png');
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
