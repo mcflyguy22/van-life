@@ -1,6 +1,7 @@
 import {Link, useLoaderData, defer, Await } from 'react-router-dom'
 import { getHostVans } from '../../../api/api'
 import { Suspense } from 'react'
+import './StyleVans.css'
 
 
 export async function Loader() {
@@ -12,7 +13,7 @@ export default function Vans() {
     const dataPromise = useLoaderData()
     
     function renderHostVanElements(hostVans) {
-        if (hostVans.length > 0) {
+        if (hostVans) {
             const hostVansElements = hostVans.map((van, index) => (
             <div key={index}>
                 <Link 
@@ -43,7 +44,7 @@ export default function Vans() {
     return (
         <div className="vans-container">
             <div className="host-vans">
-                <h1>Your listed vans</h1>
+                <span style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}><h1>Your listed vans</h1><Link to="add-van" className="add-van-link">+<span className="addvan">&nbsp; Add Van</span></Link></span>
                 <Suspense fallback={<h2>Loading Host Vans...</h2>}>
                     <Await resolve={dataPromise.hostVans}>
                         {renderHostVanElements}

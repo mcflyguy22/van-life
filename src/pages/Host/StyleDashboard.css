@@ -1,0 +1,84 @@
+.host-layout-wrapper{
+    margin: 0;    
+  }
+
+.host-dash-head{
+    background-color: #FFEAD0;
+    color: #161616;
+    margin: 0;
+    padding: 27px;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    span {
+        text-decoration: underline;
+        font-weight: bold;
+    };
+    h1, h2 {
+        font-size: 36px;
+        margin: 0;
+    }
+}
+  
+.host-dash-details{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.host-dash-review{
+    background-color: #FFDDB2;
+    color: #161616;
+    display: flex;
+    padding: 27px;
+    margin: 0;
+    h4{
+        margin: 0 10px 0 0;
+    }
+    p{
+        margin-right: auto;
+    }
+    div {
+        margin-left: auto;
+    }
+    span {
+        text-decoration: underline;
+        font-weight: bold;
+    };
+}
+
+.host-dash-vans{
+    color: #161616;
+    padding: 27px;
+
+    div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        span{
+        text-decoration: underline;
+        font-weight: bold;
+        }
+    }
+}
+
+.host-dash-vanlist{
+    border-radius: 5px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    div{
+        background-color: #FFF;
+        width: 100%;
+        display: flex;
+        justify-content: start;
+        margin: 5px 0;
+        column-gap: 10px;
+        a{
+        width: 100%;
+        display: flex;
+        justify-content: start;
+        }
+    }
+}
+  

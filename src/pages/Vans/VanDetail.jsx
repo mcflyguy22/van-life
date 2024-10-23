@@ -3,7 +3,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { getVan } from '../../api/api'
 import { Suspense, useState } from 'react';
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
-
+import './StyleVanDetail.css'
 export function Loader({ params }) {
     return defer({van: getVan(params.id)})
 }

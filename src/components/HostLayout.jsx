@@ -1,9 +1,11 @@
 import { NavLink, Outlet  } from 'react-router-dom'
-
+import { useState } from 'react'
+import './StyleHostLayout.css'
 export default function HostLayouts() {
+    const [income, setIncome] = useState(0)
     return (
         <div className="host-layout-wrapper">
-            <div className="navBar">
+            <div className="host-navBar">
                 <ul>
                     <li>
                         <NavLink 
@@ -14,7 +16,7 @@ export default function HostLayouts() {
                     </li>
                     <li>
                         <NavLink 
-                            to="income"
+                            to="orders"
                             className={({isActive}) => isActive ? "my-link" : ""}
                         >Income</NavLink>
                     </li>
@@ -32,7 +34,7 @@ export default function HostLayouts() {
                     </li>
                 </ul>
             </div>
-            <Outlet />
+            <Outlet context={[income, setIncome]}/>
         </div>
     )
 }

@@ -1,7 +1,8 @@
-import { Link, defer, Await, useLoaderData } from "react-router-dom"
+import { Link, defer, Await, useLoaderData, useOutletContext } from "react-router-dom"
 import { getHostVans } from "../../api/api"
 import { BsStarFill } from "react-icons/bs"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
+import './StyleDashboard.css'
 
 export async function Loader() {
     return defer({ hostVans: getHostVans() })
@@ -9,6 +10,7 @@ export async function Loader() {
 
 export default function Host() {
     const dataPromise = useLoaderData()
+    const income = useOutletContext()[0]
 
     function renderVanElements(hostVans) {
         if (hostVans.length > 0) {
@@ -36,7 +38,7 @@ export default function Host() {
         return (
             <>
             {vansElements}
-            <Link to="vans/add-van"><button className="add-van-btn">Add a Van!</button></Link>
+            <Link to="vans/add-van" style={{width: "100%"}}><button className="add-van-btn">Add a Van!</button></Link>
             </>
         )
     } else {
@@ -51,17 +53,17 @@ export default function Host() {
                 <div>
                 <h1>Welcome!</h1>
                 <p>Income last <span>30 days</span></p>
-                <h2>$2,260</h2>
+                <h2>${income}</h2>
                 </div>
                 <div className="host-dash-details">
-                    <span>Details</span>
+                    <span><Link to="orders">Details</Link></span>
                 </div>
             </div>
             <div className="host-dash-review">
                 <h4>Review Score</h4>
                 <BsStarFill style={{color: "orange", height: "24px"}}/>&nbsp;<strong>5.0</strong>/5
                 <div className="host-dash-details">
-                    <span>Details</span>
+                    <span><Link to="reviews">Details</Link></span>
                 </div>
             </div>
             <div className="host-dash-vans">

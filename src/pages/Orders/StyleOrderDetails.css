@@ -1,0 +1,18 @@
+.order-details-btn{
+    width: 100%;
+    margin: 15px 0;
+    height: 30px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 6px;
+    background-color: #4d4d4d;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white; 
+  }
+  
+  .order-details-btn:hover{
+    background-color: rgb(67, 67, 67);
+  }

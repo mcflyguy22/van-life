@@ -1,0 +1,140 @@
+.van-detail-container {
+  flex-grow: 1;
+  margin: 0 27px;
+  color: #161616;
+}
+
+.all-vans a{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .van-detail-container a{
+    color: #161616;
+    text-decoration: underline;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .van-detail-container img{
+    max-width: 100%;
+    max-height: 490px;
+    border-radius: 5px;
+  }
+  
+  .van-detail-container > .simple-vans, .luxury-vans, .rugged-vans{
+    margin: 15px 0;
+    width: 90px;
+    height: 35px;
+    background-color: #FFEAD0;
+    border: none;
+    outline: none;
+    color: #4D4D4D;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    border-radius: 5px;
+    &:hover{
+        cursor: default;
+    }
+  }
+  
+  .van-detail-container {
+    .simple-vans {
+    background-color: #E17654;
+    color: #FFEAD0;
+    }
+    .luxury-vans{
+      background-color: #161616;
+      color: #FFEAD0;
+    }
+    .rugged-vans{
+      background-color: #115E59;
+      color: #FFEAD0;
+    }
+  }
+    
+  .rent-van-btn {
+    width: 90%;
+    outline: none;
+    border: none;
+    background-color: #FF8C38;
+    height: 50px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    cursor: pointer;
+    color: white;
+    &:hover{
+        background-color: rgb(255, 120, 56);
+      }
+  }
+
+
+  .image-slider{
+    img{
+      width: 100%;
+      height: 100%;
+    }
+    position: relative;
+    button:first-of-type{
+      position: absolute;
+      left: 0;
+      height: 98%;
+      width: 40px;
+      padding: 0;
+      margin: 0;
+      border: none;
+      outline: none;
+      background-color: rgb(0, 0, 0, 0.2);
+      font-size: 20px;
+      &:hover{
+        background-color: rgb(0, 0, 0, 0.4);
+        color: rgb(205, 205, 205);
+        cursor: pointer;
+      }
+    }
+    button:last-of-type{
+      position: absolute;
+      right: 0;
+      height: 98%;
+      width: 40px;
+      padding: 0;
+      margin: 0;
+      border: none;
+      outline: none;
+      background-color: rgb(0, 0, 0, 0.2);
+      font-size: 20px;
+      &:hover{
+        background-color: rgb(0, 0, 0, 0.4);
+        color: rgb(205, 205, 205);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .van-detail-nav{
+    background-color: transparent;
+    ul{
+      display: flex;
+      list-style: none;
+      li{
+        margin-right: 20px;
+        a{
+          text-decoration: none;
+          color: #4D4D4D;
+          font-weight: 700;
+        }
+        
+        a:hover{
+          color: #161616;
+          text-decoration: underline;
+        }
+        .my-link{
+          color: #161616;
+          text-decoration: underline;
+        }
+      }
+    }
+  }

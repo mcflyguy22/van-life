@@ -1,0 +1,103 @@
+.vans-container {
+  flex-grow: 1;
+  margin: 0 27px;
+  color: #161616;
+  }
+  
+  .vans-container h1{
+    margin: 0;
+  }
+  .host-van{
+    height: 102px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-inline: 27px;
+    margin-top: 15px;
+    background-color: #fff;
+    margin-bottom: 27px;
+    img {
+      width: 65px;
+      height: 65px;
+      border-radius: 5px;
+    }
+    div{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      text-align: left;
+      margin-left: 15px;
+      font-size: 20px;
+      color: #161616;
+      a{
+        font-weight: 400 !important;
+        &:hover{
+          text-decoration: none !important;
+        }
+      }
+      p {
+        margin: 0;
+        width: 100%;
+        font-size: 16px;
+        color: #4D4D4D;
+        text-align: left;
+        font-weight: 600;
+      }
+      strong {
+        margin: 0;
+      }
+    }
+  }
+  
+  .host-van-link{
+    font-weight: normal !important;
+  }
+  .host-van-link:hover{
+    text-decoration: none !important;
+  }
+
+  .add-van-link{
+    font-size: 16px;
+    color: #FF8C38 !important;
+    .addvan{
+      transition: all 3s, ease-in-out;
+      display: none;
+      opacity: 0;
+    }
+    &:hover{
+      .addvan{
+        display: inline-block;
+        opacity: 1;
+      }
+      text-decoration: none !important;
+      color: rgb(255, 120, 56) !important;
+    }
+  }
+
+  .add-van-btn{
+    width: 100%;
+    margin: 20px 0;
+    height: 55px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 6px;
+    background-color: #FF8C38;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+  }
+  .add-van-btn:hover{
+    background-color: rgb(255, 120, 56);
+  }
+
+  .host-vans{
+    div{
+      &:hover{
+        filter: opacity(90%);
+      }
+    }
+  }
+  

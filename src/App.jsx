@@ -6,11 +6,13 @@ import VanDetail, { Loader as vanDetailLoader } from './pages/Vans/VanDetail'
 import VanDetailInfo from './pages/Vans/VanDetailInfo.jsx'
 import BookingPage from './pages/Vans/Booking.jsx'
 import OrderSuccess from './pages/Vans/OrderSuccess.jsx'
+import CustomerReview from './pages/Orders/CustomerReview.jsx'
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
 import Layout from './components/layouts'
 import Dashboard, { Loader as dashboardLoader } from './pages/Host/Dashboard'
-import Income from './pages/Host/Income'
-import Reviews from './pages/Host/Reviews'
+import HostOrders, { Loader as orderLoader } from './pages/Host/Orders.jsx'
+import OrderDetail, { Loader as orderDetailLoader } from './pages/Orders/OrderDetail.jsx'
+import Reviews, { Loader as reviewsLoader } from './pages/Host/Reviews'
 import HostLayout from './components/HostLayout'
 import HostVans, { Loader as hostVansLoader } from './pages/Host/Vans/Vans'
 import HostVanDetail, { Loader as hostVansDetailLoader } from './pages/Host/Vans/VansDetail.jsx'
@@ -63,6 +65,17 @@ const router = createBrowserRouter(createRoutesFromElements(
         path="success"
         element={<OrderSuccess />}
       />
+      <Route
+        path="/:id"
+        element={<OrderDetail />}
+        errorElement={<Error />}
+        loader={orderDetailLoader}
+      >
+        <Route 
+          path="customer-review"
+          element={<CustomerReview />}
+        />
+      </Route>
       <Route 
         path="vans/:id" 
         element={<VanDetail />}
@@ -86,15 +99,20 @@ const router = createBrowserRouter(createRoutesFromElements(
           <Route 
             index 
             element={<Dashboard />} 
+            errorElement={<Error />}
             loader={dashboardLoader}
           />
           <Route 
-            path="income" 
-            element={<Income />} 
+            path="orders"
+            element={<HostOrders />}
+            errorElement={<Error />}
+            loader={orderLoader}
           />
           <Route 
             path="reviews" 
             element={<Reviews />} 
+            errorElement={<Error />}
+            loader={reviewsLoader}
           />
           <Route 
             path="vans" 

@@ -6,16 +6,17 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../api/AuthContext";
 import ConfirmOrder from "./ConfirmOrder";
-import { doc, getDoc, setDoc, addDoc, collection } from "firebase/firestore";
+import { doc, getDoc, addDoc, collection } from "firebase/firestore";
 import { db } from "../../api/firebase";
 import dayjs from "dayjs";
+import './StyleBooking.css'
 
 export default function BookingPage() {
     const navigate = useNavigate()
     const van = useOutletContext()
     const {user, setUser} = useContext(AuthContext)
     const uid = user ? user.uid : null
-    console.log("uid: ", uid)
+
     const [confirmToggle, setConfirmToggle] = useState(false)
     const [pickUp, setPickUp] = useState(null);
     const [dropOff, setDropOff] = useState(null)
@@ -26,6 +27,8 @@ export default function BookingPage() {
         beginDate: null,
         endDate: null,
         van: van.id,
+        vanName: van.name,
+        hostId: van.hostId,
         user: uid
     })
 
@@ -36,6 +39,21 @@ export default function BookingPage() {
     const orderTotal = (totalPrice !== 0) ? (totalPrice + salesTax).toFixed(2) : 0
 
     console.log(formData)
+
+    function getDaysBetween(start, end) {
+        const range = [];
+        let current = start;
+      
+        while (!current.isAfter(end)) {
+          range.push(current);
+          current = current.add(1, 'day');
+        }
+      
+        return range;
+    }
+
+    const daysBetween = (formData.endDate && formData.beginDate) ? getDaysBetween(formData.beginDate, formData.endDate) : "no dates"
+    console.log(daysBetween.length)
     function handleChange(event) {
         const {name, value } = event.target;
         setFormData(prevFormData => {
@@ -87,18 +105,23 @@ export default function BookingPage() {
             setConfirmToggle(true)
         } else {
             const createOrder = async () => {
-                        await addDoc(collection(db, "Orders"), {
-                            firstName: formData.firstName,
-                            lastName: formData.lastName,
-                            email: formData.email,
-                            beginDate: formData.beginDate.$d.toLocaleDateString("en-US"),
-                            endDate: formData.endDate.$d.toLocaleDateString("en-US"),
-                            van: formData.van,
-                            user: formData.user,
-                            status: "Pending"
-                        })
-                        navigate("/success")
-                    }
+                const docRef = await addDoc(collection(db, "Orders"), {
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    beginDate: formData.beginDate.$d.toLocaleDateString("en-US"),
+                    endDate: formData.endDate.$d.toLocaleDateString("en-US"),
+                    van: formData.van,
+                    vanName: formData.vanName,
+                    user: formData.user,
+                    hostId: formData.hostId,
+                    orderTotal: formData.orderTotal,
+                    createdOn: dayjs().format('MM/DD/YYYY'),
+                    status: "Pending"
+                })
+                const urlPath = `/success?orderId=${docRef.id}`
+                navigate(urlPath)
+            }
             createOrder()
         }
     }
@@ -179,7 +202,7 @@ export default function BookingPage() {
             </DemoContainer>
             </LocalizationProvider>
 
-                <h2 style={{color: "#4d4d4d"}}>Order Summary</h2>
+                <h2 style={{marginTop: "20px", color: "#4d4d4d"}}>Order Summary</h2>
                     <div style={{display: "flex", flexDirection: "column", color: "#4d4d4d", backgroundColor: "white", padding: "10px", borderRadius: "5px"}}>
                         <div style={{display: "flex", justifyContent: "space-between", fontSize: "14px"}}>
                             <p style={{margin: "0"}}><strong>Van Price:</strong></p>

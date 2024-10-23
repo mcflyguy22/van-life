@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useState } from 'react'
 import { setDoc, doc } from 'firebase/firestore'
 import { toast } from 'react-toastify'
+import './StyleLogin.css'
 
 
 

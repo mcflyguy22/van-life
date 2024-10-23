@@ -76,9 +76,9 @@ export default function VanPhotos() {
         return (
         <div key={index} style={{display: "flex", marginTop: "27px"}}>
             <img src={image}/>
-            <div style={{marginInline: "27px", display: "flex", flexDirection: "column", rowGap: "8px", alignItems: "start", justifyContent: "center"}}>
+            <div style={{wordWrap: "break-word", overflowWrap: "break-word", marginInline: "27px", display: "flex", flexDirection: "column", rowGap: "8px", alignItems: "start", justifyContent: "center"}}>
                 <p style={{color: "black", margin: "0"}}>Image #{index + 1}</p>
-                <p style={{color: "black", margin: "0"}}>Filename: {imageUrlName}</p>
+                <p style={{color: "black", margin: "0", wordWrap: "break-word", overflowWrap: "break-word"}}>Filename: {imageUrlName}</p>
                 <span>
                 <button style={{marginRight: "10px", borderRadius: "6px", outline: "none", backgroundColor: "red"}} onClick={() => imageDelete(index)}>Remove Image</button>
                 {(index > 0) ? <button style={{marginRight: "10px", borderRadius: "6px", outline: "none", backgroundColor: "green"}} onClick={() => makeMain(index)}>Set as Main</button> : <i style={{color: "black"}}>Main Image</i>}

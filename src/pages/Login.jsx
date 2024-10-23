@@ -3,33 +3,12 @@ import { auth } from "../api/firebase"
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useState, useContext, useEffect } from 'react'
 import AuthContext from '../api/AuthContext'
+import './StyleLogin.css'
 
 export function Loader({ request }) {
     const message = new URL(request.url).searchParams.get("message")
     return message ? message : null
 }
-
-// export async function action({ request }) {
-//     const formData = await request.formData()
-//     const email = formData.get("email")
-//     const password = formData.get("password")
-//     const pathname = new URL(request.url).searchParams.get("redirectTo") || "/host"
-//     const auth = getAuth()
-
-//     signInWithEmailAndPassword(auth, email, password)
-//         .then((userCredential) => {
-//             const user = userCredential.user
-//             localStorage.setItem("loggedin", true)        
-//             const successResponse = redirect(pathname)
-//             return Object.defineProperty(successResponse, "body", {value: true}) 
-//         })
-//         .catch((error) => {
-//             const errorCode = error.code;
-//             const errorMessage = error.message;
-//             console.log(errorMessage)
-//         })
-//         return null
-// }
 
 export default function Login() {
     const [error, setError] = useState(false)
@@ -41,7 +20,6 @@ export default function Login() {
 
     useEffect(() => {
         if(user) {
-            // const pathname = new URL(request.url).searchParams.get("redirectTo") || "/host"
             navigate("/host")
         }
     }, [user])

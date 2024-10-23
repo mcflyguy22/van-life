@@ -1,0 +1,166 @@
+.hostvan-detail{
+    margin-inline: 27px;
+    padding: 27px;
+    display: flex;
+    align-items: center;
+    background-color: #FFF;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    img{
+      height: 155px;
+      border-radius: 5px;
+    }
+    div{
+      display: flex;
+      flex-direction: column;
+      height: 155px;
+      justify-content: center;
+      align-items: start;
+      margin-inline: 20px 0px;
+      button{
+        padding: 8px 15px; 
+        border: none;
+        outline: none;
+        font-weight: 600;
+        font-size: 14px;
+        font-family: "Inter", sans-serif;
+        border-radius: 5px;
+        margin-right: auto;
+        transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .simple-vans{
+        background-color: #E17654;
+        color: #FFEAD0;
+      }
+      .luxury-vans{
+        background-color: #161616;
+        color: #FFEAD0;
+      }
+      .rugged-vans{
+        background-color: #115E59;
+        color: #FFEAD0;
+      }
+      h1{
+        font-size: 26px;
+        color: #161616;
+        font-weight: 800;
+        margin: 0;
+      }
+      p{
+        color: #161616;
+        margin: 0;
+      }
+    }
+  }
+  
+  .hostvan-detail-nav{
+    margin-inline: 27px;
+    background-color: #FFF;
+    ul{
+      display: flex;
+      justify-content: flex-start;
+      margin: 0;
+      padding: 0 27px;
+      list-style: none;
+      li{
+        margin-right: 20px;
+      }
+    }  
+  }
+  
+  .backto-allvans{
+    padding-inline: 27px;
+  }
+  
+  .host-van-detail-info{
+    margin-inline: 27px;
+    margin-bottom: 27px;
+    padding-block: 15px;
+    background-color: #FFF;
+    padding-inline: 27px;
+    font-size: 14px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    h4{
+        font-size: 14px;
+        margin: 0px;
+        font-weight: 700;
+        padding-bottom: 15px;
+    }
+    span{
+        font-size: 14px;
+      font-weight: 400;
+    }
+    
+  }
+  .host-van-pricing-info{
+    margin-inline: 27px;
+    margin-bottom: 27px;
+    padding-block: 15px;
+    background-color: #FFF;
+    padding-inline: 27px;
+    font-size: 14px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    h4{
+        font-size: 14px;
+        margin: 0px;
+        font-weight: 700;
+        padding-bottom: 15px;
+    }
+    span{
+        font-size: 14px;
+      font-weight: 400;
+    }
+  
+  }
+  
+  .host-van-photos{
+    margin-inline: 27px;
+    margin-bottom: 27px;
+    padding-block: 15px;
+    background-color: #FFF;
+    padding-left: 27px;
+    font-size: 14px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 12px;
+    img{
+      max-width: 25%;
+      max-height: 100%;
+      border-radius: 5px;
+    }
+    button{
+        border: none;
+        color: white;
+        padding: 4px;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+        font-size: 12px;
+        &:hover{
+            filter: brightness(95%)
+        }
+    }
+  }
+
+
+  .save-photos-btn{
+    width: 100%;
+    margin-top: 15px;
+    height: 30px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 6px;
+    background-color: #4d4d4d;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white; 
+  }
+  
+  .save-photos-btn:hover{
+    background-color: rgb(67, 67, 67);
+  }

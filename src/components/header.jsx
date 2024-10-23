@@ -4,11 +4,10 @@ import { FaRegUserCircle, FaSignOutAlt } from "react-icons/fa"
 import { auth } from '../api/firebase'
 import AuthContext from '../api/AuthContext'
 import NavMobile from './NavMobile'
+import './StyleHeader.css'
 
 export default function Header() {
     const {user, setUser} = useContext(AuthContext)
-
-
 
     function logOut() {
         auth.signOut()
@@ -18,7 +17,7 @@ export default function Header() {
     
     return (
         <div className="navBar">
-            <h1 className="home-title"><NavLink to="/">#VANLIFE</NavLink></h1>
+            <h1><NavLink to="/" id="homeTitleLink">#VANLIFE</NavLink></h1>
             <ul className="nav-desktop">
                 {user && <li>
                     <NavLink 

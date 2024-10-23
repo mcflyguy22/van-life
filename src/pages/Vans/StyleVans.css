@@ -1,0 +1,195 @@
+/* a{
+    color: black !important;
+    &:hover{
+        color: black !important;
+        text-decoration: none !important;
+    }
+} */
+.vans-container {
+    flex-grow: 1;
+    margin: 0 27px;
+    color: #161616;
+  }
+  
+  .vans-container h1{
+    margin: 0;
+  }
+  .vans-filter-options {
+    margin-top: 22px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .vans-filter-options > .simple-vans, .luxury-vans, .rugged-vans{
+    width: 90px;
+    height: 35px;
+    background-color: #FFEAD0;
+    border: none;
+    outline: none;
+    color: #4D4D4D;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    border-radius: 5px;
+    transition: background 300ms ease-in-out;
+  }
+  
+  .clear-filter{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-weight: 400;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    color: #4D4D4D;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .simple-vans:hover{
+    background-color: #E17654;
+    color: #FFEAD0;
+  }
+  
+  .luxury-vans:hover{
+    background-color: #161616;
+    color: #FFEAD0;
+  
+  }
+  
+  .rugged-vans:hover{
+    background-color: #115E59;
+    color: #FFEAD0;
+  }
+  
+  .simple-vans-active{
+    background-color: #E17654;
+    color: #FFEAD0;
+    width: 90px;
+    height: 35px;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    border-radius: 5px;
+  }
+  
+  .luxury-vans-active{
+    background-color: #161616;
+    color: #FFEAD0;
+    width: 90px;
+    height: 35px;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    border-radius: 5px;
+  }
+  
+  .rugged-vans-active{
+    background-color: #115E59;
+    color: #FFEAD0;
+    width: 90px;
+    height: 35px;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    border-radius: 5px;
+  }
+  
+  .vans-filter-options a{
+    color: #4D4D4D;
+    font-weight: 600;
+  }
+  
+  .vans-list {
+    margin: 50px 0px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+  }
+  
+  .van {
+    border-radius: 5px;
+  }
+  
+  .van-image{
+    max-width: 100%;
+    border-radius: 5px;
+    transition: opacity 300ms ease-in-out;
+    &:hover{
+        opacity: 80%;
+    }
+  }
+  
+  .van-name-btn{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    font-size: 20;
+    font-weight: 600;
+    row-gap: 6px;
+  }
+  
+  .van button{
+    padding: 6px 12px;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    border-radius: 5px;
+    margin-right: auto;
+    transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .van a{
+    text-decoration: none;
+    color: #161616;
+  }
+  
+  .van .simple-vans{
+    background-color: #E17654;
+    color: #FFEAD0;
+  }
+  
+  .van .luxury-vans{
+    background-color: #161616;
+    color: #FFEAD0;
+  }
+  
+  .van .rugged-vans{
+    background-color: #115E59;
+    color: #FFEAD0;
+  }
+  
+  .van-details-wrap{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .van-price{
+    font-size: 20;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: start;
+  }
+  
+  .timeframe{
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+  }

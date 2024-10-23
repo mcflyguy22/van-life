@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { Link, useSearchParams, useLoaderData, defer, Await } from 'react-router-dom'
 import { getVans } from '../../api/api'
+import './StyleVans.css'
 
 export function Loader() {
     return defer({vans: getVans()})

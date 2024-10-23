@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { FaFileUpload } from "react-icons/fa"
+import './StyleAddVan.css'
 
 export default function AddVan() {
     const uid = auth.currentUser.uid

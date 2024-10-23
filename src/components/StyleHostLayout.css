@@ -1,0 +1,24 @@
+.host-navBar ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: start;
+    margin-right: 20px;
+  }
+  
+  .host-navBar li{
+    margin-right: 10px;
+    font-size: 16;
+    button{
+      cursor: pointer;
+      background-color: transparent;
+      color: #4d4d4d;
+      border: none;
+      outline: none;
+      margin: 0;
+      padding: 0;
+    }
+    button:hover{
+      color: #161616;
+    }
+  }

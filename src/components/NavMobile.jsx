@@ -5,6 +5,7 @@ import { auth } from "../api/firebase";
 import { Link } from "react-router-dom";
 import { useClickAway } from "@uidotdev/usehooks"
 import { MdClose } from "react-icons/md";
+import './StyleHeader.css'
 
 export default function NavMobile() {
     const {user, setUser} = useContext(AuthContext)

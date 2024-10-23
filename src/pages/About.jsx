@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom'
 import hero from '/public/about_hero.png'
+import './StyleAbout.css'
 
 export default function About() {
     return (

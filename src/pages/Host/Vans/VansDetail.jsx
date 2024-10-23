@@ -3,6 +3,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { getHostVan } from '../../../api/api'
 import { Suspense } from 'react';
 import { FaEdit } from "react-icons/fa";
+import './StyleHostVanDetails.css'
 
 export async function Loader({ params }) {
     return defer({hostVan: getHostVan(params.id)})
