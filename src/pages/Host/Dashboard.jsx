@@ -1,16 +1,30 @@
 import { Link, defer, Await, useLoaderData, useOutletContext } from "react-router-dom"
-import { getHostVans } from "../../api/api"
+import { getHostVans, getHostOrders, getHostReviews } from "../../api/api"
 import { BsStarFill } from "react-icons/bs"
 import { Suspense, useState } from "react"
 import './StyleDashboard.css'
 
 export async function Loader() {
-    return defer({ hostVans: getHostVans() })
+    return defer({ hostVans: getHostVans(), hostOrders: getHostOrders(), reviews: getHostReviews() })
 }
 
 export default function Host() {
     const dataPromise = useLoaderData()
-    const income = useOutletContext()[0]
+    const [income] = useOutletContext()
+    const [reviewsData, setReviewsData] = useState(null)
+    const [overallRating, setOverallRating] = useState(0)
+
+    console.log("overalll rating dashboard: ", overallRating)
+
+    function renderReviewsData(reviews) {
+        setReviewsData(reviews)
+        var ratingArr = []
+        const reviewMap = reviews.map(({vanRating}) => ratingArr.push(Number(vanRating)))
+        const reviewTotal = reviews.reduce((n, {vanRating}) => n + Number(vanRating), 0)
+        const ratingAvg = (reviewTotal / ratingArr.length).toFixed(1)
+        setOverallRating(ratingAvg)
+        
+    }
 
     function renderVanElements(hostVans) {
         if (hostVans.length > 0) {
@@ -61,7 +75,7 @@ export default function Host() {
             </div>
             <div className="host-dash-review">
                 <h4>Review Score</h4>
-                <BsStarFill style={{color: "orange", height: "24px"}}/>&nbsp;<strong>5.0</strong>/5
+                <BsStarFill style={{color: "orange", height: "24px"}}/>&nbsp;<strong>{overallRating}</strong>/5
                 <div className="host-dash-details">
                     <span><Link to="reviews">Details</Link></span>
                 </div>
@@ -75,6 +89,13 @@ export default function Host() {
                     <Suspense fallback={<h2>Loading Vans...</h2>}>
                         <Await resolve={dataPromise.hostVans}>
                             {renderVanElements}
+                        </Await>
+                    </Suspense>
+                </div>
+                <div>
+                    <Suspense fallback={<h2></h2>}>
+                        <Await resolve={dataPromise.reviews} errorElement={<p>Error loading package location!</p>}>
+                            {renderReviewsData}
                         </Await>
                     </Suspense>
                 </div>

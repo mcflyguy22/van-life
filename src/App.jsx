@@ -10,10 +10,10 @@ import CustomerReview from './pages/Orders/CustomerReview.jsx'
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
 import Layout from './components/layouts'
 import Dashboard, { Loader as dashboardLoader } from './pages/Host/Dashboard'
-import HostOrders, { Loader as orderLoader } from './pages/Host/Orders.jsx'
+import HostOrders from './pages/Host/Orders.jsx'
 import OrderDetail, { Loader as orderDetailLoader } from './pages/Orders/OrderDetail.jsx'
 import Reviews, { Loader as reviewsLoader } from './pages/Host/Reviews'
-import HostLayout from './components/HostLayout'
+import HostLayout, { Loader as hostLayoutLoader } from './components/HostLayout'
 import HostVans, { Loader as hostVansLoader } from './pages/Host/Vans/Vans'
 import HostVanDetail, { Loader as hostVansDetailLoader } from './pages/Host/Vans/VansDetail.jsx'
 import VanInfo from './pages/Host/Vans/VanInfo.jsx'
@@ -95,6 +95,8 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route 
           path="host" 
           element={<HostLayout />}
+          errorElement={<Error />}
+          loader={hostLayoutLoader}
         >
           <Route 
             index 
@@ -106,7 +108,6 @@ const router = createBrowserRouter(createRoutesFromElements(
             path="orders"
             element={<HostOrders />}
             errorElement={<Error />}
-            loader={orderLoader}
           />
           <Route 
             path="reviews" 
