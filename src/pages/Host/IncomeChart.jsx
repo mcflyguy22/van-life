@@ -44,8 +44,8 @@ export default function IncomeChart(props) {
   function CustomTooltip({ payload, label, active }) {
     if (active) {
       return (
-        <div className="custom-tooltip" style={{width: "150px", backgroundColor: "rgba(255, 255, 255, 0.8"}}>
-          <p className="label" style={{margin: "0", fontWeight: "bold"}}>{`${label}: $${payload[0].value}`}</p>
+        <div className="custom-tooltip" style={{width: "150px", backgroundColor: "rgba(255, 255, 255, 0.8", paddingInline: "12px", borderRadius: "6px", boxShadow: "0 2px 4px rgb(0,0,0,0.2)"}}>
+          <p className="label" style={{margin: "0", fontWeight: "bold", fontSize: "13px", textDecoration: "underline"}}>{`${label}: $${payload[0].value}`}</p>
           <p className="desc" style={{fontSize: "12px"}}>{`There were total sales of $${payload[0].value} in ${label}.`}</p>
         </div>
       );
@@ -53,6 +53,7 @@ export default function IncomeChart(props) {
   
     return null;
   }
+  
   return (
       <>
           <BarChart
@@ -60,13 +61,13 @@ export default function IncomeChart(props) {
             height={200}
             data={chartData}
             margin={{
-              top: 5,
+              top: 20,
               right: 0,
               left: 0,
               bottom: 10,
             }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid strokeDasharray="2 2" stroke="#dfdfdf" />
             <XAxis dataKey="Name" style={{fontSize: "12px"}} />
             <YAxis style={{fontSize: "12px"}} />
             <Tooltip content={<CustomTooltip />}/>
@@ -74,7 +75,8 @@ export default function IncomeChart(props) {
               dataKey="Total"
               fill="rgb(255, 120, 56)"
               label={renderCustomBarLabel}
-              activeBar={<Rectangle fill="orange" stroke="blue" />}
+              radius={[8, 8, 0, 0]}
+              activeBar={<Rectangle fill="rgb(235, 100, 36)" stroke="rgb(255, 120, 56)" />}
             />
           </BarChart>
       </>

@@ -1,8 +1,7 @@
-import { NavLink, Outlet, useLoaderData, defer, Await, Link, useNavigate } from 'react-router-dom'
+import { NavLink, useLoaderData, defer, Await, useNavigate } from 'react-router-dom'
 import { BsArrowLeft } from "react-icons/bs";
 import { getOrder } from '../../api/api';
-import { Suspense, useContext, useState } from 'react';
-import AuthContext from '../../api/AuthContext';
+import { Suspense, useState } from 'react';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../api/firebase';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -10,6 +9,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import CustomerReview from './CustomerReview';
 import './StyleOrderDetails.css'
 
 export async function Loader({ params }) {
@@ -19,18 +19,16 @@ export async function Loader({ params }) {
 export default function OrderDetail() {
     const navigate = useNavigate()
     const dataPromise = useLoaderData()
-    const [error, setError] = useState(false)
     const [editMode, setEditMode] = useState(false)
-    const {user, setUser} = useContext(AuthContext)
-    const uid = user ? user.uid : null
     const [isHost, setIsHost] = useState(false)
     const [formData, setFormData] = useState()
     const [hasReview, setHasReview] = useState(false)
-    console.log(dataPromise)
+    const [orderComplete, setOrderComplete] = useState(false)
 
     const currentDate = dayjs()
 
     function setFormDataFunc(data) {
+        // (data.isHost === true) ? setIsHost(true) : setIsHost(false) #unblock code when done testing
         setFormData(data);
         setEditMode(true);
     }
@@ -47,7 +45,6 @@ export default function OrderDetail() {
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-        setError(null)
         try{
             const res = await updateDoc(doc(db, "Orders", formData.id), {
                 firstName: formData.firstName,
@@ -66,15 +63,16 @@ export default function OrderDetail() {
             console.log(res)
             navigate("/host/orders")
         } catch(error){
-            setError(error.message)
-            console.log(error.message)
+            console.log(error)
         }
     }
 
-    console.log("uid:", uid)
-
+    console.log("edit mode: ", editMode)
+    console.log("formData: ", formData)
     
     function renderOrderDetailElements(order) {
+            const orderStatus = (order.status === "Complete") ? true : false
+            setOrderComplete(orderStatus)
             if (!editMode) {
                 setFormDataFunc(order)
              }
@@ -150,18 +148,20 @@ export default function OrderDetail() {
 
                     {/* <h2 style={{color: "#4d4d4d"}}>Messages</h2>
                     <p>#Messages between host and buyer here.#</p> */}
-
-                    <h2 style={{color: "#4d4d4d"}}>Customer Review</h2>
-                    {(!hasReview && !isHost) ? <p>{(order.status === "Complete") ? <Link to="customer-review">Leave a Review</Link> : "Please leave a review when your trip is finished!"}</p> : null}
-                </div>
-                <Outlet context={[order, hasReview, setHasReview]} />
+                    {orderComplete &&
+                    <><h2 style={{color: "#4d4d4d"}}>Customer Review</h2>
+                    <CustomerReview order={order} orderStatus={orderComplete} isHost={isHost} setIsHost={setIsHost} hasReview={hasReview} setHasReview={setHasReview} />
+                    </>
+                    }
+                    </div>
             </>
             )
     }
 
     return (
         <>
-            <span className="backto-allvans"><NavLink to="/host/orders" relative="path"><BsArrowLeft /> &nbsp;Back to all orders</NavLink></span>
+            <span className="backto-allvans"><NavLink to={isHost ? "/host" : "/user/user-orders"} relative="path"><BsArrowLeft /> &nbsp;Back to dashboard</NavLink></span>
+            <button onClick={() => setIsHost(!isHost)}>{isHost ? "Change to Guest" : "Change to Host"}</button>
             <Suspense fallback={<h2>Loading Order Details...</h2>}>
                 <Await resolve={dataPromise.order}>
                     {renderOrderDetailElements}

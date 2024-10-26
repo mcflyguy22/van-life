@@ -4,6 +4,7 @@ import { db, auth } from "./firebase";
 const vansCollectionRef = collection(db, "vans")
 const ordersCollectionRef = collection(db, "Orders")
 const reviewsCollectionRef = collection(db, "Reviews")
+const usersCollectionRef = collection(db, "Users")
 
 export async function getVans() {
     const querySnapshot = await getDocs(vansCollectionRef)
@@ -61,13 +62,28 @@ export async function getHostOrders() {
     return dataArr
 }
 
+export async function getUserOrders() {
+    const uid = auth.currentUser.uid
+    const q = query(ordersCollectionRef, where("user", "==", uid))
+    const querySnapshot = await getDocs(q)
+
+    const dataArr = querySnapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id,
+    }))
+    
+    return dataArr
+}
+
 export async function getOrder(id) {
+    const uid = auth.currentUser.uid
     const docRef = doc(db, "Orders", id)
     const orderSnapshot = await getDoc(docRef)
 
     return {
         ...orderSnapshot.data(),
-        id: orderSnapshot.id
+        id: orderSnapshot.id,
+        isHost: (orderSnapshot.data().hostId === uid) ? true : false
     }
 }
 
@@ -94,5 +110,24 @@ export async function getHostReviews() {
     }))
     
     return dataArr
+}
+
+export async function getProfile() {
+    const usersCollectionRef = collection(db, "Users")
+    const uid = auth.currentUser.uid
+    const q = query(usersCollectionRef, where("hostId", "==", uid))
+    const querySnapshot = await getDocs(q)
+
+    const dataArr = querySnapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.data().hostId
+    }))
+
+    return dataArr
+}
+
+export function getUID() {
+    const uid = auth.currentUser.uid
+    return uid
 }
 

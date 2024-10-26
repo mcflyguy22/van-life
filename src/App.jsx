@@ -6,7 +6,10 @@ import VanDetail, { Loader as vanDetailLoader } from './pages/Vans/VanDetail'
 import VanDetailInfo from './pages/Vans/VanDetailInfo.jsx'
 import BookingPage from './pages/Vans/Booking.jsx'
 import OrderSuccess from './pages/Vans/OrderSuccess.jsx'
-import CustomerReview from './pages/Orders/CustomerReview.jsx'
+import UserLayout, { Loader as profileLoader } from './components/UserLayout.jsx'
+import UserDashboard, { Loader as userDashLoader } from './pages/User/UserDashboard.jsx'
+import EditProfile from './pages/User/EditProfile.jsx'
+import UserOrders, { Loader as userOrderLoader } from './pages/User/UserOrders.jsx'
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
 import Layout from './components/layouts'
 import Dashboard, { Loader as dashboardLoader } from './pages/Host/Dashboard'
@@ -54,7 +57,31 @@ const router = createBrowserRouter(createRoutesFromElements(
         element={<Register />} 
         loader={loginLoader}
       />
-
+      <Route element={<AuthRequired />}>
+        <Route 
+          path="/user" 
+          element={<UserLayout />}
+          errorElement={<Error />}
+          loader={profileLoader}
+        >
+          <Route
+            index
+            element={<UserDashboard />}
+            errorElement={<Error />}
+            loader={userDashLoader}
+          />
+          <Route
+            path="edit-profile"
+            element={<EditProfile />}
+          />
+          <Route
+            path="user-orders"
+            element={<UserOrders />}
+            errorElement={<Error />}
+            loader={userOrderLoader}
+          />
+        </Route>
+      </Route>
       <Route 
         path="vans" 
         element={<Vans />} 
@@ -70,12 +97,7 @@ const router = createBrowserRouter(createRoutesFromElements(
         element={<OrderDetail />}
         errorElement={<Error />}
         loader={orderDetailLoader}
-      >
-        <Route 
-          path="customer-review"
-          element={<CustomerReview />}
-        />
-      </Route>
+      />
       <Route 
         path="vans/:id" 
         element={<VanDetail />}

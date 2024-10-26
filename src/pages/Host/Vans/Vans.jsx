@@ -5,7 +5,6 @@ import './StyleVans.css'
 
 
 export async function Loader() {
-
     return defer({hostVans: getHostVans()})
 }
 
@@ -13,7 +12,7 @@ export default function Vans() {
     const dataPromise = useLoaderData()
     
     function renderHostVanElements(hostVans) {
-        if (hostVans) {
+        if (hostVans.length > 0) {
             const hostVansElements = hostVans.map((van, index) => (
             <div key={index}>
                 <Link 
@@ -35,22 +34,27 @@ export default function Vans() {
 
         return (
             <>
+                <span style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}><h1>Your listed vans</h1><Link to="add-van" className="add-van-link">+<span className="addvan">&nbsp; Add Van</span></Link></span>
                 {hostVansElements}
+                <Link to="add-van"><button className="add-van-btn">Add a Van!</button></Link>
             </>            
         )
-    } else { return <p>You currently have no listed vans. <Link style={{color: "#FF8C38"}} to="add-van">Click here to add a van!</Link></p>}
+    } else { return (
+        <>
+        <p>You currently have no listed vans. <Link style={{color: "#FF8C38"}} to="add-van">Click here to add a van!</Link></p>
+        </>
+        )
+    }
 }
 
     return (
         <div className="vans-container">
             <div className="host-vans">
-                <span style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}><h1>Your listed vans</h1><Link to="add-van" className="add-van-link">+<span className="addvan">&nbsp; Add Van</span></Link></span>
                 <Suspense fallback={<h2>Loading Host Vans...</h2>}>
                     <Await resolve={dataPromise.hostVans}>
                         {renderHostVanElements}
                     </Await>
                 </Suspense>
-                <Link to="add-van"><button className="add-van-btn">Add a Van!</button></Link>
             </div>
         </div>
     )

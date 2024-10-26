@@ -20,20 +20,17 @@ export default function Reviews() {
             var ratings = []
             const reviewMap = reviewsData.map(({vanRating}) => ratings.push(Number(vanRating)))
             const reviewTotal = reviewsData.reduce((n, {vanRating}) => n + Number(vanRating), 0)
-            console.log(ratings)
             const overallRating = (reviewTotal / ratings.length).toFixed(1)
             const fiveStar = Math.round((ratings.filter(x => x === 5).length / reviewsData.length) * 100)
             const fiveStarCount = ratings.filter(x => x === 5).length
             const fourStar = Math.round((ratings.filter(x => x === 4).length / reviewsData.length) * 100)
             const fourStarCount = ratings.filter(x => x === 4).length
-            const threeStar = ratings.filter(x => x === 3).length
+            const threeStar = Math.round((ratings.filter(x => x === 3).length / reviewsData.length) * 100)
             const threeStarCount = ratings.filter(x => x === 3).length
-            const twoStar = ratings.filter(x => x === 2).length
+            const twoStar = Math.round((ratings.filter(x => x === 2).length / reviewsData.length) * 100)
             const twoStarCount = ratings.filter(x => x === 2).length
-            const oneStar = ratings.filter(x => x === 1).length
+            const oneStar = Math.round((ratings.filter(x => x === 1).length / reviewsData.length) * 100)
             const oneStarCount = ratings.filter(x => x === 1).length
-
-            console.log(fiveStar, fourStar, threeStar, twoStar, oneStar)
 
             const reviewElements = reviewsData.map((review) => (
             <div key={review.id}>
@@ -92,7 +89,7 @@ export default function Reviews() {
                 {reviewElements}
             </section>
         )} else {
-            return (<p style={{color: "#4d4d4d", marginInline: "27px;"}}>You have no reviews.</p>)
+            return (<p style={{color: "#4d4d4d", marginInline: "27px"}}>You have no reviews.</p>)
         }
     }
     return (

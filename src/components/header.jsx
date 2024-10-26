@@ -37,6 +37,12 @@ export default function Header() {
                         className={({isActive}) => isActive ? "my-link" : ""}
                     >Vans</NavLink>
                 </li>
+                {user && <li>
+                    <NavLink 
+                        to="/user"
+                        className={({isActive}) => isActive ? "my-link" : ""}
+                    >Account</NavLink>
+                </li>}
                 {!user && <li>
                     <NavLink 
                         to="/login"

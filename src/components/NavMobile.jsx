@@ -37,6 +37,9 @@ export default function NavMobile() {
                     
                         <Link className="nav-mobile-link" to="/about">About</Link>           
                         <Link className="nav-mobile-link" to="/vans">Vans</Link>
+                    {user && 
+                    <Link className="nav-mobile-link" to="/user">User</Link>
+                    }
                     {!user && 
                         <Link className="nav-mobile-link" to="/login">Log In</Link>
                     }

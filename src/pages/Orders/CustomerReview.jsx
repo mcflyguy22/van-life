@@ -1,4 +1,4 @@
-import { useOutletContext, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
@@ -7,13 +7,14 @@ import dayjs from "dayjs";
 import { query, getDocs, addDoc, collection, where } from "firebase/firestore";
 import { db } from "../../api/firebase";
 
-export default function CustomerReview() {
+export default function CustomerReview(props) {
     const navigate = useNavigate()
-    const order = useOutletContext()[0]
-    const hasReview = useOutletContext()[1]
-    const setHasReview = useOutletContext()[2]    
+    const order = props.order
+    const hasReview = props.hasReview
+    const setHasReview = props.setHasReview 
+    const isHost = props.isHost
     const today = dayjs().$d.toLocaleDateString("en-US")
-    const [formData, setFormData] = useState({
+    const [reviewFormData, setReviewFormData] = useState({
         vanRating: 0,
         hostRating: 0,
         vanId: order.van,
@@ -26,20 +27,22 @@ export default function CustomerReview() {
         vanReview: "",
         hostReview: ""
     })
-
     const [reviewData, setReviewData] = useState()
+
     
     function handleChange(event) {
         const {name, value } = event.target;
-        setFormData(prevFormData => {
+        setReviewFormData(prevReviewFormData => {
             return {
-                ...prevFormData,
+                ...prevReviewFormData,
                 [name]: value
             }
         })
     }
 
-    console.log("formdata: ", formData)
+    console.log("reviewFormData: ", reviewFormData)
+    console.log("isHost: ", isHost)
+    console.log("hasReview: ", hasReview)
 
     useEffect(() => {
         const getOrderReviews = async() => {
@@ -55,77 +58,85 @@ export default function CustomerReview() {
             setReviewData(dataArr[0])
         }
         getOrderReviews();
-        reviewData && setHasReview(true)
     }, [])
 
-    console.log("hasReview: ", hasReview)
-    console.log("reviewdata: ", reviewData)
+    useEffect(() => {
+        reviewData ? setHasReview(true) : null
+    }, [reviewData])
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const createReview = async () => {
             const docRef = await addDoc(collection(db, "Reviews"), {
-                vanRating: formData.vanRating,
-                hostRating: formData.hostRating,
-                name: formData.name,
-                userId: formData.userId,
-                vanId: formData.vanId,
-                vanName: formData.vanName,
-                orderId: formData.orderId,
-                hostId: formData.hostId,
-                reviewDate: formData.reviewDate,
-                vanReview: formData.vanReview,
-                hostReview: formData.hostReview
+                vanRating: reviewFormData.vanRating,
+                hostRating: reviewFormData.hostRating,
+                name: reviewFormData.name,
+                userId: reviewFormData.userId,
+                vanId: reviewFormData.vanId,
+                vanName: reviewFormData.vanName,
+                orderId: reviewFormData.orderId,
+                hostId: reviewFormData.hostId,
+                reviewDate: reviewFormData.reviewDate,
+                vanReview: reviewFormData.vanReview,
+                hostReview: reviewFormData.hostReview
             })
             console.log(docRef.id)
-            navigate("/")
+            navigate("/host")
         }
         createReview()
         
     }
 
     return (
-    <div style={{marginInline: "27px"}}>
+    <div>
+        {(!hasReview && isHost) && <p style={{fontSize: "12px", color: "red", margin: "0", fontStyle: "italic"}}>Customer has not yet submitted a review.</p>}
       <form onSubmit={handleSubmit}>
       <Box sx={{ '& > legend': { mt: 2 } }}>
-        <Typography component="legend" style={{color: "#4d4d4d"}}>Van Experience</Typography>
+        <Typography component="legend" style={{color: "#4d4d4d", fontWeight: "bold", textDecoration: "underline"}}>{order.vanName} - Van Experience</Typography>
+        <label htmlFor="vanRating" style={{color: "#4d4d4d", fontSize: "14px"}}><i>Rating</i></label><br/>
         <Rating
           name="vanRating"
-          value={!hasReview ? formData.vanRating : reviewData.vanRating}
+          value={!hasReview ? reviewFormData.vanRating : reviewData.vanRating}
           onChange={handleChange}
-          readOnly={hasReview}
+          readOnly={hasReview || (!hasReview && isHost)}
+          id="vanRating"
         /><br/>
-        <label htmlFor="vanReview" style={{marginInline: "20px", color: "#4d4d4d", fontSize: "14px"}}><i>Feedback for <b>{order.vanName}</b></i></label><br/>
+        <label htmlFor="vanReview" style={{color: "#4d4d4d", fontSize: "14px"}}><i>Feedback</i></label><br/>
         <textarea
             name="vanReview"
             id="vanReview"
-            value={!hasReview ? formData.vanReview : reviewData.vanReview}
+            value={!hasReview ? reviewFormData.vanReview : reviewData.vanReview}
             onChange={handleChange}
             rows="4"
-            cols="50"
-            style={{marginInline: "20px", backgroundColor: !hasReview ? "#FFF": "whitesmoke", borderRadius: "5px", fontFamily: "Inter, sans-serif", color: "#4d4d4d"}}
-        />
-        <Typography component="legend" style={{color: "#4d4d4d"}}>Host Experience</Typography>
-        <Rating
-          name="hostRating"
-          value={!hasReview ? formData.hostRating : reviewData.hostRating}
-          onChange={handleChange}
-          readOnly={hasReview}
+            cols="40"
+            disabled={hasReview || (!hasReview && isHost)}
+            style={{fontSize: "12px", backgroundColor: !hasReview ? "#FFF": "whitesmoke", borderRadius: "5px", fontFamily: "Inter, sans-serif", color: "#4d4d4d"}}
         />
         <br/>
-        <label htmlFor="hostReview" style={{marginInline: "20px", color: "#4d4d4d", fontSize: "14px"}}><i>Feedback for <b>Host</b></i></label><br/>
+        <Typography component="legend" style={{color: "#4d4d4d", fontWeight: "bold", textDecoration: "underline"}}>Host Experience</Typography>
+        <label htmlFor="hostRating" style={{color: "#4d4d4d", fontSize: "14px"}}><i>Rating</i></label><br/>
+        <Rating
+          name="hostRating"
+          value={!hasReview ? reviewFormData.hostRating : reviewData.hostRating}
+          onChange={handleChange}
+          readOnly={hasReview || (!hasReview && isHost)}
+          id="hostRating"
+        />
+        <br/>
+        <label htmlFor="hostReview" style={{color: "#4d4d4d", fontSize: "14px"}}><i>Feedback</i></label><br/>
         <textarea
             name="hostReview"
             id="hostReview"
-            value={!hasReview ? formData.hostReview : reviewData.hostReview}
+            value={!hasReview ? reviewFormData.hostReview : reviewData.hostReview}
             onChange={handleChange}
             rows="4"
-            cols="50"
-            style={{marginInline: "20px", backgroundColor: !hasReview ? "#FFF": "whitesmoke", borderRadius: "5px", fontFamily: "Inter, sans-serif", color: "#4d4d4d"}}
-            disabled={hasReview}
+            cols="40"
+            style={{fontSize: "12px", backgroundColor: !hasReview ? "#FFF": "whitesmoke", borderRadius: "5px", fontFamily: "Inter, sans-serif", color: "#4d4d4d"}}
+            disabled={hasReview || (!hasReview && isHost)}
         />
       </Box>
-      {!hasReview && <button type="submit">Submit Review</button>}
+      {(!hasReview && !isHost) && <button type="submit">Submit Review</button>}
       </form>
       </div>
     );

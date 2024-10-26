@@ -1,9 +1,16 @@
-import {Link, useOutletContext } from 'react-router-dom'
-import './StyleOrders.css'
-import IncomeChart from './IncomeChart'
+import './StyleUserOrders.css'
+import { getUserOrders } from '../../api/api'
+import { defer, Await, useLoaderData, Link } from 'react-router-dom'
+import { Suspense, useState } from 'react'
 
-export default function orderData() {
-    const [income, setIncome, orderData, setOrderData] = useOutletContext()
+export async function Loader() {
+    return defer({orders: getUserOrders()})
+}
+
+export default function UserOrders() {
+    const dataPromise = useLoaderData()
+    const [orderData, setOrderData] = useState()
+    // const [income, setIncome, orderData, setOrderData] = useOutletContext()
     
     const orderDataElements = orderData ? 
         orderData.map((order, index) => (
@@ -26,15 +33,17 @@ export default function orderData() {
         </div>
         )) : <p>You currently have no orders.</p>
 
+    function renderOrders(orders) {
+        setOrderData(orders)
+    }
+
+    console.log("orderData: ", orderData)
     return (
         <div className="orders-container">
             <div className="orders">
-                {(orderData.length > 0) ? <div>
-                    <h1 style={{fontSize: "32px"}}>Income</h1>
-                    <p style={{margin: "0"}}>Last <span>30 days</span></p>
-                    <h2 style={{fontSize: "24px", marginTop: "8px"}}>${income}</h2>
-                    <br/>
-                    {orderData ? <IncomeChart data={orderData}/> : <p style={{color: "black"}}>You have no sales data to display</p>}
+                {/* <p style={{color: "black"}}>User orders here</p> */}
+                {orderData ? 
+                <div>                    
                     <div style={{fontSize: "20px", display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                         <strong>Your transactions ({orderData ? orderData.length : 0})</strong>
                         <span style={{fontSize: "14px", color: "#4d4d4d"}}>Last <text style={{textDecoration: "underline", fontWeight: "bold"}}>30 days</text></span>
@@ -43,6 +52,11 @@ export default function orderData() {
                 </div>
                 : <p style={{color: "black"}}>You have no order history.</p>}
             </div>
+            <Suspense fallback={<h2>Loading Orders...</h2>}>
+                <Await resolve={dataPromise.orders}>
+                    {renderOrders}
+                </Await>
+            </Suspense>
         </div>
     )
 }

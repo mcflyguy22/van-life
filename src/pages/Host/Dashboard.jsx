@@ -75,7 +75,8 @@ export default function Host() {
             </div>
             <div className="host-dash-review">
                 <h4>Review Score</h4>
-                <BsStarFill style={{color: "orange", height: "24px"}}/>&nbsp;<strong>{overallRating}</strong>/5
+                {isNaN(overallRating) ? <span className="noReviews">You have no reviews.</span> : <><BsStarFill style={{color: "orange", height: "24px"}}/>&nbsp;<strong>{(!isNaN(overallRating)) ? overallRating : 0}</strong>/5</>}
+
                 <div className="host-dash-details">
                     <span><Link to="reviews">Details</Link></span>
                 </div>

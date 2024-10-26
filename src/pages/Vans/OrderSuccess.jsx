@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { db } from "../../api/firebase"
 import { getDoc, doc } from "firebase/firestore"
@@ -52,9 +52,9 @@ export default function OrderSuccess() {
     return (
         <div style={{marginInline: "27px", color: "#4d4d4d", display: "flex", flexDirection: "column", justifyContent: "center"}}>
         <h1>Thanks so much for your order!</h1>
-        <p>Order ID is {orderID} and your reservation is from {orderData.beginDate} to {orderData.endDate}.</p>
-
-
+        <p>Your reservation is from {orderData.beginDate} to {orderData.endDate}.</p>
+        <center><Link to={`/${orderID}`}>View Order Details/Leave a Review</Link></center>
+        
         <div className="receipt-box">
 
             {/* actual receipt */}
@@ -111,6 +111,7 @@ export default function OrderSuccess() {
                 )}
               </button> 
             </div>
+            <br/>
         </div>
     </div>
     )

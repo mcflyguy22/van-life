@@ -1,0 +1,58 @@
+
+.host-order{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 27px;
+    margin-top: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    a{
+        color: #4d4d4d;
+        text-decoration: none !important;
+        font-weight: 700 !important;
+        &:hover{
+            text-decoration: underline !important;
+            color: black;
+        }
+    }
+    div{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      text-align: left;
+      font-size: 14px;
+      color: #161616;
+      padding: 17px 4px;
+      h3{
+        margin: 0;
+        font-size: 16px;
+        width: 100%;
+        color: #4d4d4d;
+      }
+      p {
+        margin: 0;
+        padding-inline: 6px;
+        width: 100%;
+        font-size: 14px;
+        color: #4D4D4D;
+        text-align: left;
+        font-weight: 600;
+      }
+      strong {
+        margin: 0;
+      }
+    }
+  }
+
+.orders-container {
+    flex-grow: 1;
+    margin: 0 27px;
+    color: #161616;
+    margin-bottom: 20px;
+}
+    
+.orders-container h1{
+    margin: 0;
+}
