@@ -13,7 +13,7 @@ import UserOrders, { Loader as userOrderLoader } from './pages/User/UserOrders.j
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
 import Layout from './components/layouts'
 import Dashboard, { Loader as dashboardLoader } from './pages/Host/Dashboard'
-import HostOrders from './pages/Host/Orders.jsx'
+import HostOrders, { Loader as hostOrderLoader } from './pages/Host/Orders.jsx'
 import OrderDetail, { Loader as orderDetailLoader } from './pages/Orders/OrderDetail.jsx'
 import Reviews, { Loader as reviewsLoader } from './pages/Host/Reviews'
 import HostLayout, { Loader as hostLayoutLoader } from './components/HostLayout'
@@ -130,6 +130,7 @@ const router = createBrowserRouter(createRoutesFromElements(
             path="orders"
             element={<HostOrders />}
             errorElement={<Error />}
+            loader={hostOrderLoader}
           />
           <Route 
             path="reviews" 

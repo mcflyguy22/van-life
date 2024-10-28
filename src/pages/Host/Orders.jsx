@@ -1,10 +1,21 @@
-import {Link, useOutletContext } from 'react-router-dom'
+import {Link, useOutletContext, defer, Await, useLoaderData } from 'react-router-dom'
 import './StyleOrders.css'
 import IncomeChart from './IncomeChart'
+import { getHostOrders } from '../../api/api'
+import { Suspense } from 'react'
 
-export default function orderData() {
+export async function Loader() {
+    return defer({orders: getHostOrders()})
+}
+
+export default function HostOrders() {
+    const dataPromise = useLoaderData()
     const [income, setIncome, orderData, setOrderData] = useOutletContext()
     
+    function renderOrders(orders) {
+        setOrderData(orders)
+    }
+
     const orderDataElements = orderData ? 
         orderData.map((order, index) => (
         <div key={index} style={{display: "flex", flexDirection: "column"}}>
@@ -29,7 +40,7 @@ export default function orderData() {
     return (
         <div className="orders-container">
             <div className="orders">
-                {(orderData.length > 0) ? <div>
+                {orderData ? <div>
                     <h1 style={{fontSize: "32px"}}>Income</h1>
                     <p style={{margin: "0"}}>Last <span>30 days</span></p>
                     <h2 style={{fontSize: "24px", marginTop: "8px"}}>${income}</h2>
@@ -43,6 +54,11 @@ export default function orderData() {
                 </div>
                 : <p style={{color: "black"}}>You have no order history.</p>}
             </div>
+            <Suspense fallback={<h2>Loading Orders...</h2>}>
+                <Await resolve={dataPromise.orders}>
+                    {renderOrders}
+                </Await>
+            </Suspense>
         </div>
     )
 }

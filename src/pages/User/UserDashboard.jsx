@@ -1,8 +1,9 @@
 import './StyleUserDashboard.css'
-import { defer, Await, useLoaderData } from 'react-router-dom'
+import { defer, Await, useLoaderData, Link } from 'react-router-dom'
 import { Avatar } from '@mui/material'
 import { useState, Suspense} from 'react'
 import { getProfile } from '../../api/api'
+import { FaEdit } from 'react-icons/fa'
 
 export async function Loader() {
     return defer({profile: getProfile()})
@@ -55,7 +56,13 @@ export default function UserDashboard() {
                         <h1>Hi {userProfile ? userProfile.firstName : "you"}</h1>
                         {profileImage ? <Avatar alt="Current Image" src={profileImage} sx={{width: 56, height: 56}}/> : <Avatar {...stringAvatar(`${userProfile.firstName} ${userProfile.lastName}`)} sx={{width: 56, height: 56}} />}
                     </div>
-                    <div className="host-dash-review">
+                    <div className="user-dash-profile">
+                        <h2 style={{display: "flex", justifyContent: "space-between"}}>User Details <Link to="edit-profile"><FaEdit /></Link></h2>
+                        <ul>
+                            <li><b>Email:</b> {userProfile.email}</li>
+                            <li><b>First Name:</b> {userProfile.firstName}</li>
+                            <li><b>Last Name:</b> {userProfile.lastName}</li>
+                        </ul>
                     </div>
                     <div className="host-dash-vans">
                     </div>

@@ -137,7 +137,7 @@ export default function AddVan() {
                   required={true}
                   id="imageUrl"
                 />
-                <button disabled={per !== null && per < 100} type="submit">Edit Profile</button>
+                <button disabled={per !== null && per < 100} type="submit">Save Changes</button>
             </form>
         </div>
     )

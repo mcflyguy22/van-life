@@ -29,8 +29,8 @@ export default function VanDetail() {
                     <span className="all-vans"><Link to={`..${search}`} relative="path"><BsArrowLeft /> &nbsp;Back to {type} vans</Link></span>
                     <div className="image-slider">
                         <img src={imageArr[imageIndex]} />
-                        {(imageArr.length > 1) && <><button onClick={() => { return ((imageIndex === 0) ? setImageIndex(lastImgIndex) : setImageIndex(imageIndex - 1))}}><FaChevronCircleLeft /></button>
-                        <button onClick={() => { return ((imageIndex !== lastImgIndex) ? setImageIndex(imageIndex + 1) : setImageIndex(0))}}><FaChevronCircleRight /></button></>}
+                        {(imageArr.length > 1) && <><button className="imgButton" onClick={() => { return ((imageIndex === 0) ? setImageIndex(lastImgIndex) : setImageIndex(imageIndex - 1))}}><FaChevronCircleLeft /></button>
+                        <button className="imgButton" onClick={() => { return ((imageIndex !== lastImgIndex) ? setImageIndex(imageIndex + 1) : setImageIndex(0))}}><FaChevronCircleRight /></button></>}
                     </div>
                     <button className={`${van.type}-vans`}>{van.type}</button>
                 <br/>

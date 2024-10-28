@@ -41,16 +41,14 @@ export default function UserOrders() {
     return (
         <div className="orders-container">
             <div className="orders">
-                {/* <p style={{color: "black"}}>User orders here</p> */}
-                {orderData ? 
                 <div>                    
-                    <div style={{fontSize: "20px", display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-                        <strong>Your transactions ({orderData ? orderData.length : 0})</strong>
-                        <span style={{fontSize: "14px", color: "#4d4d4d"}}>Last <text style={{textDecoration: "underline", fontWeight: "bold"}}>30 days</text></span>
+                    {orderData && <><div style={{fontSize: "20px", display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                        <strong>{orderData ? (orderData.length > 0) ? `Your transactions (${orderData.length})` : "You have no transactions" : ""}</strong>
                     </div>
+                    <center><p style={{marginTop: "20px"}}>{orderData ? (!orderData.length > 0) ? <Link to="/vans"><button className="van-search-btn">Find your van</button></Link> : "" : ""}</p></center></>
+                    }
                     {orderDataElements}
                 </div>
-                : <p style={{color: "black"}}>You have no order history.</p>}
             </div>
             <Suspense fallback={<h2>Loading Orders...</h2>}>
                 <Await resolve={dataPromise.orders}>

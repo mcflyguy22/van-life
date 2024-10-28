@@ -28,7 +28,7 @@ export default function OrderDetail() {
     const currentDate = dayjs()
 
     function setFormDataFunc(data) {
-        // (data.isHost === true) ? setIsHost(true) : setIsHost(false) #unblock code when done testing
+        (data.isHost === true) ? setIsHost(true) : setIsHost(false)
         setFormData(data);
         setEditMode(true);
     }
@@ -89,7 +89,7 @@ export default function OrderDetail() {
                             placeholder="email"
                             onChange={handleChange}
                             name="email"
-                            disabled={!isHost ? true : false}
+                            disabled={(!isHost || orderComplete) ? true : false}
                             value={formData.email}
                             required={true}
                             id="email"
@@ -98,7 +98,7 @@ export default function OrderDetail() {
                         <select
                             onChange={handleChange}
                             name="status"
-                            disabled={!isHost ? true : false}
+                            disabled={(!isHost || orderComplete) ? true : false}
                             value={formData.status}
                             required={true}
                             id="status"
@@ -123,7 +123,7 @@ export default function OrderDetail() {
                                         beginDate: newValue.$d.toLocaleDateString("en-US")
                                     }))}
                                     minDate={currentDate}
-                                    disabled={!isHost ? true : false}
+                                    disabled={(!isHost || orderComplete) ? true : false}
                                     />
                                 </div>
                                 <div style={{display: "flex", width: "50%", flexDirection: "column", rowGap: "10px"}}>
@@ -136,14 +136,14 @@ export default function OrderDetail() {
                                         endDate: newValue.$d.toLocaleDateString("en-US")
                                     }))}
                                     minDate={formData.beginDate && dayjs(formData.beginDate)}
-                                    disabled={!isHost ? true : false}
+                                    disabled={(!isHost || orderComplete) ? true : false}
                                     />
                                 </div>
                             </div>
                         </DemoContainer>
                     </LocalizationProvider>
                     <br/>
-                    {isHost && <button type="submit" className="order-details-btn">Save Changes</button>}
+                    {(isHost && !orderComplete) && <button type="submit" className="order-details-btn">Save Changes</button>}
                     </form>
 
                     {/* <h2 style={{color: "#4d4d4d"}}>Messages</h2>
@@ -161,7 +161,8 @@ export default function OrderDetail() {
     return (
         <>
             <span className="backto-allvans"><NavLink to={isHost ? "/host" : "/user/user-orders"} relative="path"><BsArrowLeft /> &nbsp;Back to dashboard</NavLink></span>
-            <button onClick={() => setIsHost(!isHost)}>{isHost ? "Change to Guest" : "Change to Host"}</button>
+
+            {/* <button onClick={() => setIsHost(!isHost)}>{isHost ? "Change to Guest" : "Change to Host"}</button> #Code used for testing*/}
             <Suspense fallback={<h2>Loading Order Details...</h2>}>
                 <Await resolve={dataPromise.order}>
                     {renderOrderDetailElements}
